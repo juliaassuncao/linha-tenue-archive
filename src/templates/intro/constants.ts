@@ -1,6 +1,6 @@
 import { LorenaC } from '@/constants/characters/lorena/constants';
 import { EduardaC } from '@/constants/characters/eduarda/constants';
-import type { MediaAssetProps } from '@/constants/props';
+import type { CharacterContentProps, MediaAssetProps } from '@/constants/props';
 import type { IntroBlockProps } from './props';
 
 export const SynopsisC = {
@@ -11,36 +11,45 @@ export const SynopsisC = {
       id: 'synopsis-lorena',
       relativePath: 'intro/synopsis/lorena.webp',
       alt: 'Retrato de Lorena, de cabelos escuros, com a mão junto ao rosto.',
-      source: [
-        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
-      ],
+      source: ['archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG'],
     },
     contract: {
       id: 'synopsis-contract',
       relativePath: 'intro/synopsis/contract.webp',
       alt: 'Mão assinando um documento com uma caneta-tinteiro.',
-      source: [
-        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
-      ],
+      source: ['archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG'],
     },
     fakeKiss: {
       id: 'synopsis-fake-kiss',
       relativePath: 'intro/synopsis/fake-kiss.webp',
       alt: 'Duas mulheres se beijando, com a palavra FAKE sobreposta em vermelho.',
-      source: [
-        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
-      ],
+      source: ['archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG'],
     },
     eduarda: {
       id: 'synopsis-eduarda',
       relativePath: 'intro/synopsis/eduarda.webp',
       alt: 'Retrato de Eduarda, ruiva e de óculos escuros, olhando por cima do ombro.',
-      source: [
-        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
-      ],
+      source: ['archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG'],
     },
   } satisfies Record<string, MediaAssetProps>,
 };
+
+export const CharacterSectionsC = [
+  {
+    id: LorenaC.character.id,
+    title: 'Infos da Lorena',
+    data: LorenaC,
+  },
+  {
+    id: EduardaC.character.id,
+    title: 'Infos da Eduarda',
+    data: EduardaC,
+  },
+] satisfies {
+  id: string;
+  title: string;
+  data: CharacterContentProps;
+}[];
 
 export const IntroC = {
   header: {
@@ -59,9 +68,7 @@ export const IntroC = {
         SynopsisC.media.fakeKiss.id,
         SynopsisC.media.eduarda.id,
       ],
-      source: [
-        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
-      ],
+      source: ['archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG'],
     },
     {
       id: 'lorena-opening',

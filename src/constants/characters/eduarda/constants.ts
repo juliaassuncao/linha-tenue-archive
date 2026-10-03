@@ -17,7 +17,7 @@ export const EduardaC = {
       username: '@eduarda',
       bio: 'Atriz 🎬',
       location: 'São Paulo',
-      websiteLabel: 'eduardafragoso.com',
+      websiteLabel: '🔗 eduardafragoso.com',
       verified: true,
       following: '100',
       followers: '83.9K',

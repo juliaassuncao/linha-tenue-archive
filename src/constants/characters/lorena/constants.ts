@@ -17,7 +17,7 @@ export const LorenaC = {
       username: '@lorena',
       bio: 'Modelo.',
       location: 'São Paulo',
-      websiteLabel: 'lorenamodel.com',
+      websiteLabel: '🔗 lorenamodel.com',
       verified: true,
       following: '55',
       followers: '81.7K',

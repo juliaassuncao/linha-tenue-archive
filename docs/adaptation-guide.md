@@ -26,6 +26,12 @@ Um screenshot que mistura interface textual e mídia pode dar origem a texto rec
 
 Ao escolher a exceção de manter um screenshot completo, registre o motivo para permitir conferência. Priorize responsividade e legibilidade sem apagar elementos visuais necessários à compreensão.
 
+## Alinhamento dos textos
+
+Todo texto que represente prosa ou narração, incluindo a sinopse, deve usar `text-align: justify` na classe específica desse conteúdo. Não aplicar essa regra globalmente a todos os elementos `<p>`.
+
+Bios, usernames, labels, mensagens de interface, títulos e outros textos de UI mantêm o alinhamento apropriado ao componente. O uso de um parágrafo não torna automaticamente seu conteúdo narrativo; mensagens de personagens também mantêm o alinhamento definido para seu formato.
+
 ## Processo de adaptação e conferência
 
 1. Localize os screenshots e identifique a sequência original do material.

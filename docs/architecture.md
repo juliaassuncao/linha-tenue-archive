@@ -71,10 +71,12 @@ scripts/
 | `src/constants/characters/lorena/constants.ts` | `LorenaC`: personagem, contas, squad com participantes e mídias de Lorena. |
 | `src/constants/characters/eduarda/constants.ts` | `EduardaC`: personagem, contas, squad com participantes e mídias de Eduarda. |
 | `src/templates/` | Composições editoriais concretas da INTRO e das atualizações. |
-| `src/templates/intro/constants.ts` | `SynopsisC`: título, texto e quatro mídias originais separadas; `IntroC`: cabeçalho em `header` e sequência editorial sem numeração em `blocks`, referenciando os dados existentes. |
+| `src/templates/intro/constants.ts` | `SynopsisC`: título, texto e quatro mídias originais separadas; `IntroC`: cabeçalho em `header` e sequência editorial sem numeração em `blocks`; `CharacterSectionsC`: configuração das seções de personagens, referenciando os dados existentes. |
 | `src/templates/intro/props.ts` | `IntroBlockProps`: contrato específico dos blocos da INTRO. |
 | `src/templates/updates/` | Destino futuro das atualizações originais, cada uma em sua pasta numerada; não implementado nesta etapa. |
 | `public/assets/` | Mídia adaptada/publicável, incluindo os arquivos físicos da INTRO. |
+| `public/assets/intro/` | Assets específicos do conteúdo histórico e da adaptação da INTRO. |
+| `public/assets/ui/` | Assets gráficos reutilizáveis da interface dos componentes, como os ícones de `social-profile/`. |
 | `source/archive/` | Screenshots históricos locais não versionados; não são assets da interface. |
 | `src/preview/` | Interface exclusiva do ambiente local de desenvolvimento. |
 | `src/styles/` | Estilos destinados ao AO3 e estilos exclusivos do preview, separados entre si. |
@@ -84,7 +86,7 @@ Os contratos compartilhados ficam em `src/constants/props.ts`, com exports expl�
 
 A organização separa responsabilidades gerais no primeiro nível e mantém dados e contratos próximos de seu contexto. Cada protagonista possui um único `constants.ts`, com personagem, contas, squad, participantes e mídia agregados em um objeto composto e aninhado, verificado com `satisfies CharacterContentProps`. A sinopse e a sequência editorial ficam juntas no `constants.ts` do template da INTRO. As constantes têm exports nomeados e contratos verificados por tipagem explícita ou `satisfies`, sem export default ou comentários. As antigas pastas `src/data` e `src/assets`, vazias e sem uso, foram removidas; mídia física continua em `public/assets`.
 
-Uma atualização futura segue preferencialmente `src/templates/updates/001/`, com `index.tsx` para a implementação React e `constants.ts` para todo o conteúdo específico daquela atualização: tweets, narração, conversas, mídia e ordem dos blocos. `props.ts` e `styles.module.scss` só quando houver necessidade real. Não espalhar uma atualização por pastas globais de tweets, chats ou narrações. A pasta de updates permanece vazia nesta etapa; a INTRO possui somente `constants.ts` e `props.ts`, sem implementação visual ou arquivos artificiais para rastrear diretórios vazios.
+Uma atualização futura segue preferencialmente `src/templates/updates/001/`, com `index.tsx` para a implementação React e `constants.ts` para todo o conteúdo específico daquela atualização: tweets, narração, conversas, mídia e ordem dos blocos. `props.ts` e `styles.module.scss` só quando houver necessidade real. Não espalhar uma atualização por pastas globais de tweets, chats ou narrações. A pasta de updates permanece vazia nesta etapa. A INTRO já possui apresentação da sinopse e seções de personagens compostas por perfis públicos e privados, sem antecipar a implementação das atualizações ou criar arquivos artificiais para rastrear diretórios vazios.
 
 `relativePath` é relativo a `public/assets/`, sem o prefixo `/assets/`. `source` continua relativo a `source/` e aponta à proveniência histórica. Os assets físicos não substituem essa referência.
 
@@ -92,9 +94,13 @@ As quatro imagens originais da sinopse permanecem em assets separados, na ordem 
 
 ## Convenções de código e componentes
 
-Componentes e arquivos `index.tsx` são responsáveis por composição e apresentação. Todo texto exibido ao leitor deve vir do `constants.ts` correspondente ao seu contexto, evitando strings editoriais hardcoded em JSX. Textos específicos da INTRO ficam em `src/templates/intro/constants.ts`; textos de uma atualização ficam em seu próprio `src/templates/updates/<numero>/constants.ts`, sem mover conteúdo local para constants globais. Labels de interface e títulos temporários de testes visuais também seguem essa convenção: os da Synopsis ficam em `src/templates/intro/synopsis/constants.ts`, inclusive para alternativas comentadas. Componentes reutilizáveis recebem o conteúdo por props.
+Componentes React devem ser declarados preferencialmente como `const` com arrow function, por exemplo `export const Component = () => { ... };`, em vez de function declarations.
 
-Todo texto que represente prosa ou narração, incluindo a sinopse, deve usar `text-align: justify` na classe específica desse conteúdo. Não aplicar essa regra globalmente a todos os elementos `<p>`. Títulos, labels, bios, mensagens e textos de interface mantêm o alinhamento definido pelo componente e não seguem automaticamente a regra de justificação.
+Componentes e arquivos `index.tsx` são responsáveis principalmente por estrutura, composição e apresentação. Todo conteúdo textual estático exibido ao leitor deve vir do `constants.ts` correspondente ao seu contexto, evitando strings editoriais hardcoded em JSX. Textos específicos da INTRO ficam em `src/templates/intro/constants.ts`; textos de uma atualização ficam em seu próprio `src/templates/updates/<numero>/constants.ts`, sem mover conteúdo local para constants globais. Labels de interface e títulos temporários de testes visuais também seguem essa convenção: os da Synopsis ficam em `src/templates/intro/synopsis/constants.ts`, inclusive para alternativas comentadas. Componentes reutilizáveis recebem o conteúdo por props.
+
+Quando várias instâncias compartilham estrutura e diferem apenas nos dados, preferir uma coleção de configuração renderizada com `.map()` e uma `key` baseada em ID estável. Na INTRO, `CharacterSectionsC` contém `id`, `title` e `data`, na ordem Lorena → Eduarda. `data` referencia diretamente `LorenaC` ou `EduardaC`, sem duplicar seus dados de domínio; os títulos dessas seções pertencem somente à coleção. Uma única chamada estrutural de `CharacterSection` apresenta os perfis público e privado de cada personagem.
+
+O alinhamento da prosa e dos textos de interface segue o [guia de adaptação](adaptation-guide.md#alinhamento-dos-textos).
 
 Em arquivos TypeScript/TSX, use aspas simples, ponto e vírgula ao final de statements, trailing commas em objetos, arrays e argumentos multilinha quando aplicável, e indentação de 2 espaços. Propriedades de objetos não levam aspas quando forem identificadores JavaScript válidos. `.prettierrc` registra o padrão local; não exige instalação de dependências nesta etapa. Aplicar formatação somente ao escopo da tarefa, preservando integralmente os textos transcritos.
 
@@ -110,6 +116,14 @@ nome-do-componente/
 ```
 
 `props.ts` exporta props com nome explícito, usa `import type` para tipos e não contém comentários ou JSDoc. Use `constants.ts` somente quando houver conteúdo/configuração local necessária, ou `constants.tsx` somente quando contiverem JSX. Não criar arquivos vazios para cumprir a estrutura; cada arquivo deve ser necessário.
+
+### Atomic Design e extração de componentes
+
+Primeiro implementar a necessidade concreta; depois extrair abstrações quando a repetição comprovar que são úteis. Não criar atoms, molecules ou organisms antecipadamente. Extrair componentes compartilhados somente quando houver necessidade concreta de reutilização, evitando abstração prematura e fragmentação excessiva.
+
+`SocialProfile` é um organism reutilizável porque representa uma unidade complexa usada por múltiplas contas e personagens. `CharacterSection` é uma composição específica da INTRO e permanece em `src/templates/intro/character-section/`, em vez de `components/`. Não transformar elementos internos pequenos em atoms ou molecules apenas para cumprir Atomic Design formalmente.
+
+Ícones genéricos de UI pertencem a `public/assets/ui/`, atualmente `public/assets/ui/social-profile/`. Não misturá-los às pastas específicas de Lorena ou Eduarda em `public/assets/intro/`.
 
 ## Preview e exportação
 

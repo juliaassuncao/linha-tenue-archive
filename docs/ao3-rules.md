@@ -22,6 +22,14 @@ Nome e username de uma conta devem ser texto real, assim como narração e mensa
 
 Use estrutura semântica adequada ao conteúdo, com parágrafos, títulos e agrupamentos coerentes. A apresentação visual pode aproximar as interfaces da AU, mas não deve esconder informações essenciais em estilos ou transformar texto legível em imagem por conveniência.
 
+### Semântica dos blocos e elementos visuais
+
+`<section>` agrupa uma parte temática de uma página ou documento; `<article>` representa uma unidade relativamente autônoma que faz sentido por si mesma. Na implementação atual, `CharacterSection` usa `<section>` e `SocialProfile` usa `<article>`.
+
+Elementos visuais que simulam controles da interface original, mas não executam uma ação real, não devem ser implementados como `<button>` ou `<a>`. Usar markup não interativo apropriado, preservando o visual sem criar falsa semântica ou interatividade. Links e botões ficam reservados a ações reais.
+
+Imagens puramente decorativas ou redundantes devem usar `alt=""` quando a informação já estiver disponível em texto próximo. Imagens informativas devem possuir texto alternativo apropriado ao conteúdo, sem inventar informações ausentes na fonte.
+
 ## Work Skin e estilos locais
 
 O CSS publicado deve conter somente estilos necessários ao conteúdo da obra. Mantenha separadas as duas finalidades descritas na [arquitetura](architecture.md):
@@ -33,7 +41,9 @@ Não exporte SCSS como se fosse CSS pronto. Não deixe o HTML publicado depender
 
 ### Decisões de CSS para o conteúdo da obra
 
-O preview React do conteúdo destinado futuramente ao AO3 deve manter um layout traduzível para Work Skin. Isso também se aplica aos CSS Modules de Intro e Synopsis; funcionar no navegador local não comprova compatibilidade no destino.
+O preview React do conteúdo destinado futuramente ao AO3 deve manter um layout traduzível para Work Skin. Isso também se aplica aos CSS Modules de Intro, Synopsis, CharacterSection e SocialProfile; funcionar no navegador local não comprova compatibilidade no destino. O objetivo é aproximar o preview do comportamento possível no AO3, sem exigir um redesenho durante a exportação.
+
+Priorizar responsividade natural com `width`, `max-width`, `height: auto`, `display`, `flex`, `flex-wrap`, `margin`, `padding` e `box-sizing`. Usar `position` e `z-index` quando necessários à composição, como nas sobreposições do perfil. Estas são decisões relevantes ao projeto, não uma lista completa de propriedades aceitas pelo AO3.
 
 Neste projeto, não utilizar nesse conteúdo:
 

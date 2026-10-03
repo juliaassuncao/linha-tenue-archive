@@ -1,8 +1,9 @@
-import { IntroC, SynopsisC } from './constants';
+import { CharacterSectionsC, IntroC, SynopsisC } from './constants';
 import { Synopsis } from './synopsis';
 import S from './styles.module.scss';
+import { CharacterSection } from './character-section';
 
-export function Intro() {
+export const Intro = () => {
   return (
     <main className={S.wrapper}>
       <header className={S.header}>
@@ -20,7 +21,19 @@ export function Intro() {
             SynopsisC.media.eduarda,
           ]}
         />
+        {CharacterSectionsC.map(({ id, title, data }) => (
+          <CharacterSection
+            key={id}
+            title={title}
+            publicAccount={data.accounts.public}
+            publicAvatar={data.media.publicAvatar}
+            publicBanner={data.media.publicBanner}
+            privateAccount={data.accounts.private}
+            privateAvatar={data.media.privateAvatar}
+            privateBanner={data.media.privateBanner}
+          />
+        ))}
       </div>
     </main>
   );
-}
+};

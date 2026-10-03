@@ -1,0 +1,175 @@
+.profile {
+  width: 100%;
+  max-width: 540px;
+  margin: 3em auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid #d8dee4;
+  border-radius: 18px;
+  background-color: #ffffff;
+  color: #0f1419;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.cover {
+  position: relative;
+  background-color: #d8dee4;
+
+  > img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.main {
+  padding: 0 3.2% 1.4em;
+}
+
+.back {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  display: block;
+  width: 48px;
+  max-width: 10%;
+  background-color: #e9e6e6;
+  border-radius: 50%;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.avatar {
+  position: relative;
+  z-index: 2;
+  width: 112px;
+  max-width: 22%;
+  margin-top: -7%;
+  overflow: hidden;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background-color: #d8dee4;
+  box-sizing: border-box;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+}
+
+.editProfile {
+  display: inline-block;
+  margin-top: 1em;
+  padding: 0.5em 1.2em;
+  border: 1px solid #536471;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #0f1419;
+  font-size: 0.95em;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.info {
+  margin-top: 0.7em;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.65em;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+.verified {
+  display: inline-block;
+  width: 24px;
+  margin-left: 0.25em;
+  vertical-align: middle;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.private {
+  display: inline-block;
+  margin-left: 0.25em;
+  font-size: 0.65em;
+  vertical-align: middle;
+}
+
+.handle {
+  margin: 0;
+  color: #536471;
+  font-size: 1em;
+}
+
+.bio {
+  margin: 0.5em 0;
+  font-size: 1.2em;
+}
+
+.bioIcon {
+  display: inline-block;
+  width: 1em;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 0.6em;
+  color: #536471;
+  font-size: 1.05em;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 1em 0.4em 0;
+
+  img {
+    width: 18px;
+    height: auto;
+    margin-right: 0.3em;
+  }
+}
+
+.website {
+  display: inline-block;
+  margin: 0 1.5em 0.4em 0;
+  color: #1d9bf0;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  color: #536471;
+  font-size: 1.05em;
+}
+
+.stat {
+  margin: 0 1.2em 0.4em 0;
+
+  strong {
+    color: #0f1419;
+  }
+}
