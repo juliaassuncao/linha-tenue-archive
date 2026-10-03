@@ -49,4 +49,4 @@ Use identificadores ou caminhos internos para assets quando possível. A resolu�
 
 Cada capítulo narrativo no AO3 corresponde a uma atualização originalmente publicada pela autora, com início e fim indicados por ela. Preserve essa divisão e a ordem interna do conteúdo.
 
-Um capítulo inicial separado pode reunir informações introdutórias, personagens e contexto. O primeiro MVP será **“00 — Informações iniciais”**, baseado no material introdutório, com Lorena Ferette e Eduarda Fragoso. Ele deve provar o pipeline descrito na [arquitetura](architecture.md) antes da adaptação das atualizações narrativas.
+A INTRO reúne informações introdutórias, personagens e contexto como front matter / apresentação inicial, sem número e sem ser capítulo narrativo. O primeiro MVP será **INTRO — Informações iniciais**, baseado no material introdutório, com Lorena Ferette e Eduarda Fragoso. Sua ordem autoral confirmada é 001 → 011. Ele deve provar o pipeline descrito na [arquitetura](architecture.md) antes da adaptação das atualizações narrativas.

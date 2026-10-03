@@ -50,6 +50,10 @@ src/
     news/
   data/
     characters/
+    accounts/
+    squads/
+    media/
+    intro/
     updates/
   preview/
   styles/
@@ -65,12 +69,18 @@ scripts/
 | `src/components/whatsapp/` | Chats e mensagens. |
 | `src/components/story/` | Narração, divisores, mídia e elementos narrativos gerais. |
 | `src/components/news/` | Portais de notícias, fofoca e interfaces editoriais da AU. |
-| `src/data/characters/` | Dados reutilizáveis dos personagens e de suas contas. |
+| `src/data/characters/` | Identidades reutilizáveis dos personagens. |
+| `src/data/accounts/` | Contas públicas e privadas associadas por ID. |
+| `src/data/squads/` | Apresentações de grupos e participantes locais. |
+| `src/data/media/` | Registro de assets internos. |
+| `src/data/intro/` | INTRO: front matter / apresentação inicial sem numeração. |
 | `src/data/updates/` | Conteúdo estruturado de cada atualização original. |
 | `src/preview/` | Interface exclusiva do ambiente local de desenvolvimento. |
 | `src/styles/` | Estilos destinados ao AO3 e estilos exclusivos do preview, separados entre si. |
 | `src/types/` | Modelos TypeScript do domínio, definidos conforme os formatos forem conhecidos. |
 | `scripts/` | Exportadores, validadores e ferramentas do projeto. |
+
+Os tipos seguem a convenção `src/types/<dominio>/props.ts`, com exports explícitos: `CharacterProps`, `SocialAccountProps`, `SquadProps`, `SquadParticipantProps`, `MediaAssetProps` e `IntroBlockProps`. Dependências usam o caminho da pasta correspondente, como `../squad-participant/props`. Não exportar um tipo genérico chamado apenas `Props`. Os arquivos contêm somente imports necessários e declarações de tipos, sem comentários ou JSDoc; explicações permanecem nos documentos do projeto.
 
 ## Preview e exportação
 
@@ -89,10 +99,10 @@ Uma futura camada de resolução de assets deverá transformar identificadores o
 
 ## MVP e evolução
 
-O primeiro MVP é **“00 — Informações iniciais”**, baseado no material introdutório da AU, com **Lorena Ferette** e **Eduarda Fragoso** como personagens iniciais.
+O primeiro MVP é **INTRO — Informações iniciais**, uma apresentação inicial sem numeração, baseado no material introdutório da AU, com **Lorena Ferette** e **Eduarda Fragoso** como personagens iniciais.
 
 Ele deve validar dados de personagens, contas públicas e privadas, apresentação de squads, imagens e wallpapers. Também deve comprovar layout responsivo, separação entre conteúdo e apresentação, preview local, Work Skin, exportação HTML e publicação no AO3. Esse pipeline deve ser provado antes da adaptação das atualizações narrativas.
 
 Prefira soluções simples, componentes pequenos, tipos explícitos, reutilização, HTML semântico, acessibilidade e manutenção futura. Evite abstrações prematuras, bibliotecas desnecessárias, dependências visuais externas, duplicação e acoplamento entre dados e interface. Não considere suficiente uma solução que funcione apenas no preview React.
 
-Implemente primeiro o necessário para o MVP. Novos modelos e componentes surgirão conforme formatos reais da história exigirem; esta documentação não define antecipadamente todos os tipos nem a implementação do exportador.
+Implemente primeiro o necessário para o MVP. Novos modelos e componentes surgirão conforme formatos reais da história exigirem; o primeiro modelo do MVP está em `src/types/`; formatos futuros e a implementação do exportador não são antecipados.

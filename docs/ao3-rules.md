@@ -58,4 +58,4 @@ Ao implementar o pipeline, conferir:
 5. Imagens necessárias usam URLs públicas e alternativas textuais apropriadas.
 6. O capítulo mantém o conteúdo e a divisão da atualização original indicada pela autora.
 
-O MVP **“00 — Informações iniciais”** deve validar a exportação e a publicação no AO3 antes da adaptação das atualizações narrativas. Estes são requisitos do projeto; esta etapa documental não implementa nem comprova o pipeline.
+O MVP **INTRO — Informações iniciais**, front matter sem numeração, deve validar a exportação e a publicação no AO3 antes da adaptação das atualizações narrativas. Estes são requisitos do projeto; esta etapa documental não implementa nem comprova o pipeline.

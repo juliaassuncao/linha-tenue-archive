@@ -1,67 +1,104 @@
 # Modelo de conteúdo
 
-## Fonte de verdade e escopo
+## Fonte de verdade e primeiro modelo do MVP
 
-Os dados estruturados são a fonte de verdade da edição adaptada. Screenshots arquivados são a fonte histórica usada na transcrição e na conferência; componentes React apresentam os dados sem armazenar o texto específico da história em sua implementação.
+Os dados estruturados são a fonte de verdade da edição adaptada. Screenshots arquivados são a fonte histórica para transcrição e QA. Componentes React apresentam os dados sem embutir conteúdo específico da história em sua implementação.
 
-Este documento define conceitos e relações. Não fecha antecipadamente interfaces TypeScript, campos obrigatórios de todos os formatos ou uma lista exaustiva de tipos. Os modelos explícitos em `src/types/` devem evoluir conforme o MVP e os formatos reais da AU forem conhecidos.
+O primeiro modelo está definido em `src/types/` e cobre somente os seis conceitos comprovados pelo material introdutório: `CharacterProps`, `SocialAccountProps`, `SquadProps`, `SquadParticipantProps`, `MediaAssetProps` e `IntroBlockProps`. Novos formatos só serão modelados quando houver evidência e necessidade. Ainda não há transcrição de dados reais, cadastro de mídia ou resolvedor de assets.
 
-## Personagens, contas e squads
+## INTRO, UPDATE e CHAPTER
 
-`src/data/characters/` concentra dados reutilizáveis dos personagens e de suas contas. Uma personagem pode ter contas públicas e privadas; a atualização deve identificar tanto a personagem quanto a conta utilizada, evitando confundir suas identidades de apresentação.
+- **INTRO:** front matter / apresentação inicial da obra. Não é capítulo numerado nem atualização narrativa. Seu arquivo futuro será `src/data/intro/intro.ts`.
+- **UPDATE:** atualização histórica originalmente publicada pela autora. Os arquivos futuros começam em `src/data/updates/001.ts`, depois `002.ts` e assim por diante.
+- **CHAPTER:** representação/publicação de uma UPDATE no AO3, preservando os limites indicados pela autora.
 
-Nome, username, avatar e demais informações reutilizáveis da conta devem ser definidos em um lugar e referenciados nas atualizações. Conceitualmente, podem existir arquivos como `lorena.ts` e `eduarda.ts`; a organização final será definida na implementação.
+A introdução não recebe número: não usar `intro-00.ts`, `chapter-00`, `update-00` ou equivalente. Pastas de screenshots em blocos de 100 não definem capítulos.
 
-Squads devem permitir representar os agrupamentos apresentados no material introdutório e suas relações com os personagens. Não invente integrantes, contas, usernames ou metadados que ainda não tenham sido obtidos da fonte.
+A ordem autoral confirmada da INTRO é 001 → 011: sinopse; abertura de Lorena; perfil público; perfil privado; squad; wallpaper; abertura de Eduarda; perfil público; perfil privado; squad; wallpaper.
 
-## Atualizações e capítulos
+## Organização dos dados
 
-`src/data/updates/` guarda o conteúdo estruturado de cada atualização originalmente publicada pela autora no Twitter/X, mantendo a ordem narrativa de seus blocos.
+```text
+src/data/
+  characters/   → identidades principais
+  accounts/     → contas sociais separadas das personagens
+  squads/       → apresentações de grupos
+  media/        → registro de assets
+  intro/        → apresentação inicial sem numeração
+  updates/      → atualizações narrativas numeradas a partir de 001
+```
 
-Cada capítulo narrativo do AO3 corresponderá a uma atualização original. A autora indicará onde cada uma começa e termina; essa divisão deve ser preservada. Pastas de screenshots numeradas em blocos de 100 são organização do arquivo histórico e **não representam capítulos**.
+Arquivos como `lorena.ts`, `eduarda.ts`, `lorena-public.ts`, `lorena-private.ts`, `eduarda-public.ts`, `eduarda-private.ts`, `lorena-squad.ts` e `eduarda-squad.ts` serão preenchidos em tarefa posterior. Não criar arquivos vazios apenas para reproduzir essa estrutura futura.
 
-Pode existir um capítulo inicial separado para introdução, personagens e contexto. O MVP **“00 — Informações iniciais”** ocupa esse papel e parte do material introdutório, inicialmente com Lorena Ferette e Eduarda Fragoso.
+## IDs e referências
 
-## Blocos de conteúdo
+Use IDs estáveis em string, nunca derivados de índices de arrays. Contas e squads apontam à personagem por `characterId`. Referências a mídia guardam IDs de `MediaAssetProps`, sem copiar caminhos ou URLs nas entidades consumidoras.
 
-Um bloco representa uma unidade de conteúdo adaptado dentro de uma atualização. Ele deve permitir identificar o formato, guardar o conteúdo necessário à apresentação e referenciar sua fonte histórica.
+Essas referências são strings no primeiro modelo. TypeScript verifica a forma dos objetos, mas não comprova a existência dos IDs referenciados, a relatividade dos caminhos ou a correspondência entre arquivos históricos. Essas relações devem ser conferidas na futura autoria/QA; não há validação externa nesta etapa.
 
-Os formatos conhecidos incluem narração, tweets, replies, quote tweets, threads, perfis, chats, mensagens, mídia, divisores e interfaces de notícias ou fofoca. Esses conceitos não determinam ainda quais serão tipos independentes, blocos agrupados ou relações entre blocos.
+## Tipos do MVP
 
-Preserve a sequência e as relações relevantes, como uma resposta ao tweet correspondente ou uma citação ao conteúdo citado. A representação deve funcionar tanto no preview quanto na exportação estática, sem depender de estado da interface local.
+Os arquivos seguem `src/types/<dominio>/props.ts` e exportam nomes explícitos terminados em `Props`, nunca apenas `Props`. Contêm somente imports necessários, interfaces, type aliases e union types, sem comentários ou JSDoc. Dependências usam o caminho da pasta do domínio, como `../squad-participant/props`.
+
+| Tipo e arquivo em `src/types/` | Campos e responsabilidade |
+| --- | --- |
+| `CharacterProps` — `character/props.ts` | `id`, `name`, `source`. Identidade principal sem duplicar dados das contas. |
+| `SocialAccountProps` — `social-account/props.ts` | `id`, `characterId`, `kind`, `displayName`, `username`, `bio`, `verified`, `following`, `followers`, `avatarMediaId`, `bannerMediaId`, `source`; opcionais `location` e `websiteLabel`. |
+| `SquadProps` — `squad/props.ts` | `id`, `name`, `characterId`, `participants`, `source`; `backgroundMediaId` opcional. Apresentação de grupo, sem associação a WhatsApp. |
+| `SquadParticipantProps` — `squad-participant/props.ts` | `id` local, `text`, `direction`; opcionais `label` e `avatarMediaId`. Existe dentro do squad, sem cadastro global independente. |
+| `MediaAssetProps` — `media-asset/props.ts` | `id`, `relativePath`, `alt`, `source`. Mídia referenciada por ID e substituível sem alterar seus consumidores. |
+| `IntroBlockProps` — `intro-block/props.ts` | Union discriminada por `type`, com `id` e `source` em cada variante; organiza texto editorial e referências, sem duplicar entidades. |
+
+### Personagens e contas
+
+`kind` utiliza `'public' | 'private'`, sem enum. A condição privada/cadeado é derivada de `kind === 'private'`, sem campo booleano duplicado. `verified` é um boolean obrigatório que representa a presença ou ausência do selo de verificação no material.
+
+`following` e `followers` são strings preservadas exatamente como exibidas, incluindo abreviações. `websiteLabel` é apenas o texto do perfil: não presumir protocolo, endereço real ou link funcional.
+
+`avatarMediaId` e `bannerMediaId` guardam IDs de mídia. Capas tipográficas continuam sendo imagens; não reconstruir lettering complexo em HTML. Contas e squads se associam à personagem sem exigir listas duplicadas em `CharacterProps`.
+
+### Squads e participantes
+
+Squads são apresentações visuais específicas de grupo. Não são WhatsApp nem um modelo universal de chat.
+
+Preserve somente o que estiver visível. Não complete nomes, sobrenomes, usernames, relações ou biografias. `label` guarda o rótulo de contato; `text` guarda o texto da apresentação/balão. Ambos são distintos. `label` e `avatarMediaId` podem faltar no balão enviado pela protagonista.
+
+A ordem do array `participants` é a única fonte de verdade para a sequência editorial/visual. `direction` é obrigatório e usa `'incoming' | 'outgoing'`, sempre relativo à personagem de referência do squad; não inferir essa informação apenas pelo alinhamento. `backgroundMediaId` é uma referência opcional a mídia; não presume reutilização de um wallpaper apenas por semelhança.
+
+### Mídia
+
+A finalidade da mídia é determinada pelo contexto da referência: `avatarMediaId` indica avatar, `bannerMediaId` indica capa, `backgroundMediaId` indica fundo e o bloco `wallpaper` indica wallpaper. O registro não possui classificação de finalidade; o mesmo asset pode servir a múltiplos contextos quando a reutilização for confirmada. A montagem da sinopse é inicialmente um único asset.
+
+`relativePath` é um caminho relativo interno de asset, como `characters/eduarda/wallpaper.webp`. Não é URL pública, caminho absoluto do computador ou endereço específico de hospedagem. Nunca armazenar URL pública hardcoded no conteúdo de domínio. A futura resolução transformará `relativePath` em caminho local/public para o preview e URL pública externa para a exportação AO3.
+
+Uma mídia derivada de screenshot poderá ser substituída por um original fornecido pela autora mantendo seu ID e atualizando o registro do asset. Mudanças de hospedagem pertencem à futura resolução e não exigem reescrever a história. Reutilização de assets só ocorre quando confirmada.
+
+### Blocos da INTRO
+
+As variantes são exclusivamente:
+
+- `synopsis`: `title`, `text` e `mediaId` da montagem única.
+- `character-opening`: `characterId` e `text` de abertura.
+- `profile`: `accountId`, sem repetir dados do perfil.
+- `squad`: `squadId`, sem repetir participantes.
+- `wallpaper`: `characterId` e `mediaId`, para os wallpapers apresentados por personagem. Não existe bloco genérico de mídia nesta etapa.
+
+A ordem do array de blocos define a sequência editorial. IDs de blocos permanecem estáveis independentemente de sua posição. Não modelar agora tweets narrativos, notícias, chats ou outros formatos ausentes deste material.
 
 ## Rastreabilidade com `source`
 
-Todo bloco adaptado deve poder guardar referências aos screenshots originais. Um bloco pode ser sustentado por mais de um screenshot. Exemplo conceitual, sem definir um contrato TypeScript completo:
+Personagens, contas, squads, mídia e blocos guardam `source: string[]`. Participantes usam a fonte do squad que os contém. Os caminhos são relativos a `source/`, por exemplo:
 
-```json
-{
-  "type": "tweet",
-  "source": ["004.1.JPG", "004.2.JPG"]
-}
+```text
+archive/Info Linha Tênue - Leth Medveguillen/003. Info Lorena.JPG
 ```
 
-`source` serve para QA, permite localizar rapidamente a fonte histórica e pode aparecer no preview/editor. Não precisa aparecer no AO3. Mantenha referências que permitam localizar a imagem no arquivo, distinguindo arquivos de mesmo nome se isso ocorrer.
+Não usar caminhos absolutos do computador. Múltiplas referências permitem registrar conteúdo derivado de mais de um screenshot. `source` serve para QA, comparação histórica e rastreabilidade editorial, podendo aparecer no preview, sem precisar aparecer no HTML final.
 
-Uma referência histórica não implica publicar o screenshot. A decisão sobre o que será imagem na edição está no [guia de adaptação](adaptation-guide.md).
+Uma referência histórica não obriga a publicar o screenshot. Referências de assets identificam mídia da apresentação; referências `source` identificam a evidência histórica.
 
-## Assets e resolução por destino
+## Decisões de apresentação confirmadas
 
-Assets são recursos usados na apresentação, como avatares, fotos, ilustrações e wallpapers. Quando possível, os dados devem guardar identificadores ou caminhos internos, evitando repetir URLs externas completas em cada atualização.
+Os cabeçalhos repetidos da autora não serão reconstruídos por bloco. A atribuição da obra/autora será tratada editorialmente em outro momento. Controles funcionais, como `Edit profile`, retorno, menus e ícones sem significado narrativo, serão omitidos. Verificação e privacidade permanecem representáveis por serem semanticamente relevantes.
 
-A futura camada de resolução deve fornecer:
-
-| Destino | Resultado da resolução |
-| --- | --- |
-| Preview local | Arquivo local. |
-| Exportação para AO3 | URL externa pública. |
-
-Assim, uma mudança de hospedagem poderá ser feita no mapeamento dos assets sem reescrever o conteúdo da história. Referências `source` apontam à evidência histórica; referências de assets apontam à mídia usada na apresentação. Não confunda essas funções.
-
-Reutilize referências à mesma mídia para evitar duplicação desnecessária. A implementação do registro de assets, do resolvedor e de seus tipos permanece futura.
-
-## Evolução orientada pelo MVP
-
-Comece pelos dados necessários a personagens, contas públicas e privadas, squads, imagens e wallpapers do capítulo introdutório. Expanda o modelo apenas conforme surgirem novos formatos na AU.
-
-Prefira relações claras, tipos explícitos e dados independentes da apresentação. Evite esquemas universais prematuros, cópias de informações reutilizáveis e campos destinados apenas a controles do preview. Decisões sobre transcrição e revisão do texto seguem o [guia de adaptação](adaptation-guide.md).
+Fidelidade textual e critérios de imagem seguem o [guia de adaptação](adaptation-guide.md). O destino estático segue as [regras para AO3](ao3-rules.md).

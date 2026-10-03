@@ -21,8 +21,9 @@ Não altere decisões arquiteturais silenciosamente. Se uma tarefa exigir contra
 - Garanta suporte a referências `source` nos blocos e use identificadores ou caminhos internos para assets, resolvidos conforme o destino.
 - Preserve as atualizações originais como capítulos, com limites indicados pela autora. Pastas de screenshots em blocos de 100 não definem capítulos.
 - Prefira componentes pequenos, tipos explícitos, HTML semântico, acessibilidade e soluções simples. Evite abstrações prematuras, dependências desnecessárias e duplicação de conteúdo.
-- Implemente primeiro o necessário para **“00 — Informações iniciais”**, com Lorena Ferette e Eduarda Fragoso. Expanda modelos apenas quando novos formatos da AU exigirem.
+- Organize tipos em `src/types/<dominio>/props.ts`, com nomes explícitos terminados em `Props`. Esses arquivos contêm somente imports e declarações de tipos, sem comentários ou JSDoc; regras de domínio ficam na documentação.
+- Implemente primeiro o necessário para **INTRO — Informações iniciais**, a apresentação inicial sem numeração, com Lorena Ferette e Eduarda Fragoso. Expanda modelos apenas quando novos formatos da AU exigirem.
 
 ## Etapa atual
 
-A etapa atual é de documentação. Não implemente componentes, estilos ou funcionalidades sem uma tarefa posterior que autorize esse trabalho. Os exemplos dos documentos são conceituais, não contratos de tipos nem implementações existentes.
+O primeiro modelo de domínio do MVP está em `src/types/`, conforme `docs/content-model.md`. Implemente somente o escopo autorizado em cada tarefa; modelos futuros e exemplos conceituais não autorizam transcrição, componentes ou exportação.
