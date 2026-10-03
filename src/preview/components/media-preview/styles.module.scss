@@ -1,0 +1,34 @@
+.image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.placeholder {
+  box-sizing: border-box;
+  padding: 1.5rem;
+  border: 3px dashed #831843;
+  background: #fce7f3;
+  color: #500724;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  text-align: center;
+  overflow-wrap: anywhere;
+
+  strong {
+    font-size: 1.25rem;
+  }
+
+  dl {
+    margin: 1rem 0 0;
+  }
+
+  dt {
+    margin-top: 0.75rem;
+    font-weight: 700;
+  }
+
+  dd {
+    margin: 0;
+  }
+}
