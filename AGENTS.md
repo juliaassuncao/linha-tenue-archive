@@ -27,7 +27,7 @@ Não altere decisões arquiteturais silenciosamente. Se uma tarefa exigir contra
 - Use imports relativos para arquivos próximos e `@/` para outras áreas do `src`; o alias é configurado no TypeScript e no Vite. Evite caminhos relativos longos atravessando áreas.
 - Em TypeScript/TSX, use aspas simples, propriedades sem aspas quando forem identificadores válidos, ponto e vírgula, trailing commas em estruturas multilinha e indentação de 2 espaços. A configuração local está em `.prettierrc`.
 - `src/components` contém peças reutilizáveis de interface, organizadas futuramente por Atomic Design em `atoms`, `molecules` e `organisms`. Componentes seguem preferencialmente uma pasta com `index.tsx`, `props.ts` e `styles.module.scss`, criando somente os arquivos necessários; `constants.ts` somente quando houver conteúdo/configuração local necessária. `MediaPreview` permanece em `src/preview`, exclusivo do desenvolvimento local, sem integrar conteúdo AO3 ou Work Skin.
-- Preserve os 18 WebP aprovados da INTRO. Originais fornecidos pela autora poderão substituir preferencialmente apenas o arquivo físico, mantendo ID, `relativePath` e proveniência histórica em `source`.
+- Preserve os 21 WebP atuais da INTRO. Os quatro assets originais da sinopse permanecem separados; sua composição visual será reconstruída futuramente por HTML/CSS no template da INTRO. Para substituições futuras por originais, prefira manter ID, `relativePath` e proveniência histórica em `source`.
 - Implemente primeiro o necessário para **INTRO — Informações iniciais**, a apresentação inicial sem numeração, com Lorena Ferette e Eduarda Fragoso. Expanda modelos apenas quando novos formatos da AU exigirem.
 
 ## Etapa atual

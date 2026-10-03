@@ -71,7 +71,7 @@ scripts/
 | `src/constants/characters/lorena/constants.ts` | `LorenaC`: personagem, contas, squad com participantes e mídias de Lorena. |
 | `src/constants/characters/eduarda/constants.ts` | `EduardaC`: personagem, contas, squad com participantes e mídias de Eduarda. |
 | `src/templates/` | Composições editoriais concretas da INTRO e das atualizações. |
-| `src/templates/intro/constants.ts` | `SynopsisC`: título, texto e mídia da montagem; `IntroC`: sequência editorial sem numeração, referenciando os dados existentes. |
+| `src/templates/intro/constants.ts` | `SynopsisC`: título, texto e quatro mídias originais separadas; `IntroC`: sequência editorial sem numeração, referenciando os dados existentes. |
 | `src/templates/intro/props.ts` | `IntroBlockProps`: contrato específico dos blocos da INTRO. |
 | `src/templates/updates/` | Destino futuro das atualizações originais, cada uma em sua pasta numerada; não implementado nesta etapa. |
 | `public/assets/` | Mídia adaptada/publicável, incluindo os arquivos físicos da INTRO. |
@@ -87,6 +87,8 @@ A organização separa responsabilidades gerais no primeiro nível e mantém dad
 Uma atualização futura segue preferencialmente `src/templates/updates/001/`, com `index.tsx` para a implementação React e `constants.ts` para todo o conteúdo específico daquela atualização: tweets, narração, conversas, mídia e ordem dos blocos. `props.ts` e `styles.module.scss` só quando houver necessidade real. Não espalhar uma atualização por pastas globais de tweets, chats ou narrações. A pasta de updates permanece vazia nesta etapa; a INTRO possui somente `constants.ts` e `props.ts`, sem implementação visual ou arquivos artificiais para rastrear diretórios vazios.
 
 `relativePath` é relativo a `public/assets/`, sem o prefixo `/assets/`. `source` continua relativo a `source/` e aponta à proveniência histórica. Os assets físicos não substituem essa referência.
+
+As quatro imagens originais da sinopse permanecem em assets separados, na ordem Lorena → contrato → fake kiss → Eduarda. A composição visual da montagem será reconstruída futuramente por HTML/CSS no template da INTRO; essa apresentação ainda não foi implementada.
 
 ## Convenções de código e componentes
 

@@ -32,7 +32,7 @@ src/
     updates/                     → uso futuro, sem arquivos nesta etapa
 ```
 
-A convenção reserva `src/constants` para dados persistentes e compartilháveis da AU e seus contratos. Conteúdo relacionado a uma personagem fica agregado em um único `constants.ts` dela; constants podem conter objetos compostos e aninhados. `LorenaC` e `EduardaC` usam `satisfies CharacterContentProps`. `src/templates` reúne composições editoriais concretas: `SynopsisC` e `IntroC` compartilham o `constants.ts` da INTRO. `SynopsisC` contém título, texto e o MediaAsset da montagem, verificado com `satisfies MediaAssetProps`. `IntroC` é tipada como `IntroBlockProps[]` e referencia essas constants, inclusive seus IDs, sem repetir os dados das entidades. Os arquivos de conteúdo têm exports nomeados, sem export default ou comentários; não há conteúdo ativo duplicado nas estruturas antigas.
+A convenção reserva `src/constants` para dados persistentes e compartilháveis da AU e seus contratos. Conteúdo relacionado a uma personagem fica agregado em um único `constants.ts` dela; constants podem conter objetos compostos e aninhados. `LorenaC` e `EduardaC` usam `satisfies CharacterContentProps`. `src/templates` reúne composições editoriais concretas: `SynopsisC` e `IntroC` compartilham o `constants.ts` da INTRO. `SynopsisC` contém título, texto e `media` com as chaves `lorena`, `contract`, `fakeKiss` e `eduarda`, cada uma contendo um MediaAsset; o objeto é verificado com `satisfies Record<string, MediaAssetProps>`. `IntroC` é tipada como `IntroBlockProps[]` e referencia essas constants, inclusive seus IDs, sem repetir os dados das entidades. Os arquivos de conteúdo têm exports nomeados, sem export default ou comentários; não há conteúdo ativo duplicado nas estruturas antigas.
 
 Cada atualização futura ficará em `src/templates/updates/<numero>/`, preferencialmente com `index.tsx` para sua implementação React e `constants.ts` contendo todo o conteúdo específico: tweets, narração, conversas, mídia e ordem dos blocos. Props e estilos locais só quando necessários. Não espalhar uma mesma atualização por pastas globais de tweets, chats ou narrações. Não criar arquivos artificiais para rastrear pastas vazias.
 
@@ -40,7 +40,7 @@ Props específicas de componente ou template permanecem junto de seu contexto. `
 
 As constants usam propriedades sem aspas quando forem identificadores válidos, strings com aspas simples, ponto e vírgula, trailing commas em estruturas multilinha e indentação de 2 espaços. A configuração local `.prettierrc` registra essas regras. A formatação não altera textos da autora, nomes, bios, usernames, labels, contagens ou fontes.
 
-`public/assets/intro/` contém somente mídia extraída ou convertida para a edição adaptada. `source/archive/` é o arquivo histórico local não versionado. Não criar arquivos vazios para representar organização futura.
+`public/assets/intro/` contém a mídia usada pela edição adaptada, incluindo os quatro assets originais da sinopse obtidos posteriormente e os recortes históricos dos demais elementos. `source/archive/` é o arquivo histórico local não versionado. Não criar arquivos vazios para representar organização futura.
 
 ## IDs e referências
 
@@ -80,17 +80,17 @@ A ordem do array `participants` é a única fonte de verdade para a sequência e
 
 ### Mídia
 
-A finalidade da mídia é determinada pelo contexto da referência: `avatarMediaId` indica avatar, `bannerMediaId` indica capa, `backgroundMediaId` indica fundo e o bloco `wallpaper` indica wallpaper. O registro não possui classificação de finalidade; o mesmo asset pode servir a múltiplos contextos quando a reutilização for confirmada. A montagem da sinopse é inicialmente um único asset.
+A finalidade da mídia é determinada pelo contexto da referência: `avatarMediaId` indica avatar, `bannerMediaId` indica capa, `backgroundMediaId` indica fundo e o bloco `wallpaper` indica wallpaper. O registro não possui classificação de finalidade; o mesmo asset pode servir a múltiplos contextos quando a reutilização for confirmada. Os quatro assets originais da sinopse são mantidos separadamente: `synopsis-lorena`, `synopsis-contract`, `synopsis-fake-kiss` e `synopsis-eduarda`. A composição visual da montagem será reconstruída futuramente por HTML/CSS no template da INTRO, sem implementação nesta etapa.
 
 `relativePath` é relativo a `public/assets/`, como `intro/eduarda/wallpaper.webp`, sem incluir `/assets/`. Não é URL pública, caminho absoluto do computador ou endereço específico de hospedagem. Nunca armazenar URL pública hardcoded no conteúdo de domínio. A futura resolução transformará `relativePath` em caminho local/public para o preview e URL pública externa para a exportação AO3.
 
 Uma mídia derivada de screenshot poderá ser substituída por um original fornecido pela autora mantendo seu ID e atualizando o registro do asset. Mudanças de hospedagem pertencem à futura resolução e não exigem reescrever a história. Reutilização de assets só ocorre quando confirmada.
 
-Os 18 WebP atuais são arquivos físicos válidos e aprovados, usados como fallback para eventuais originais futuros da Leth. Quando um original for fornecido, preferir substituir somente o arquivo físico existente, mantendo o mesmo filename, `relativePath` e ID. Contas, squads e blocos não precisam mudar. Preservar `source` como proveniência histórica da adaptação, mesmo após a substituição do recorte.
+Os 21 WebP atuais incluem quatro assets originais da sinopse e 17 assets dos demais elementos, mantidos como fallback para eventuais originais futuros da Leth. Para substituições futuras, preferir substituir somente o arquivo físico existente, mantendo o mesmo filename, `relativePath` e ID. Contas, squads e blocos não precisam mudar. Os quatro assets da sinopse e seu bloco mantêm `archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG` em `source`, documentando sua utilização na publicação histórica. `relativePath` aponta ao asset físico atual, enquanto `source` preserva a proveniência histórica mesmo quando um recorte é substituído por um original.
 
 Para arquivos ausentes no futuro, `MediaPreview` apresenta um placeholder explícito de desenvolvimento sem modificar o catálogo ou criar imagem substituta. Ele permanece em `src/preview/components/media-preview/`, separado do domínio, da Work Skin e da exportação AO3; o resolvedor definitivo continua fora desta etapa.
 
-O catálogo físico da INTRO possui 18 assets WebP: uma montagem, oito mídias de perfis, seis avatares de squads, dois wallpapers completos e um recorte de fundo do squad de Lorena. O squad de Eduarda reutiliza `eduarda-wallpaper`: as cortinas e os detalhes da fotografia correspondem ao fundo observado. O fundo de Lorena permanece separado porque o squad não mostra a frase do wallpaper; o asset é um recorte dos pixels históricos visíveis, sem substituir o wallpaper real por uma cor CSS.
+O catálogo físico da INTRO possui 21 assets WebP: quatro imagens originais da sinopse, oito mídias de perfis, seis avatares de squads, dois wallpapers completos e um recorte de fundo do squad de Lorena. Os arquivos da sinopse são `intro/synopsis/lorena.webp`, `intro/synopsis/contract.webp`, `intro/synopsis/fake-kiss.webp` e `intro/synopsis/eduarda.webp`, relativos a `public/assets/`. O squad de Eduarda reutiliza `eduarda-wallpaper`: as cortinas e os detalhes da fotografia correspondem ao fundo observado. O fundo de Lorena permanece separado porque o squad não mostra a frase do wallpaper; o asset é um recorte dos pixels históricos visíveis, sem substituir o wallpaper real por uma cor CSS.
 
 Os wallpapers preservam a composição e proporção das mídias standalone. Os avatares usam recortes quadrados internos aos retratos circulares para excluir interface. As capas usam regiões sem controles ou retratos sobrepostos, com perda de enquadramento nas áreas indisponíveis; não há reconstrução de pixels ocultos, upscale, filtros ou preenchimento generativo. Nenhum asset é um screenshot completo de interface.
 
@@ -98,7 +98,7 @@ Os wallpapers preservam a composição e proporção das mídias standalone. Os 
 
 As variantes são exclusivamente:
 
-- `synopsis`: `title`, `text` e `mediaId` da montagem única.
+- `synopsis`: `title`, `text` e `mediaIds: string[]` das quatro imagens, na ordem Lorena → contrato → fake kiss → Eduarda, referenciando `SynopsisC.media.lorena.id`, `SynopsisC.media.contract.id`, `SynopsisC.media.fakeKiss.id` e `SynopsisC.media.eduarda.id`. Somente essa variante utiliza um array de IDs de mídia.
 - `character-opening`: `characterId` e `text` de abertura.
 - `profile`: `accountId`, sem repetir dados do perfil.
 - `squad`: `squadId`, sem repetir participantes.

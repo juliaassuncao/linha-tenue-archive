@@ -4,7 +4,7 @@ export type IntroBlockProps =
       type: 'synopsis';
       title: string;
       text: string;
-      mediaId: string;
+      mediaIds: string[];
       source: string[];
     }
   | {

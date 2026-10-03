@@ -7,13 +7,39 @@ export const SynopsisC = {
   title: 'linha tênue | au loquinha',
   text: 'Uma atriz e uma modelo que não se suportam, Eduarda e Lorena assinam um contrato de namoro falso para preservar a imagem de ambas. Só esquecem que o ódio e o amor andam lado a lado.',
   media: {
-    id: 'synopsis-montage',
-    relativePath: 'intro/synopsis/montage.webp',
-    alt: 'Montagem de quatro imagens: uma mulher de cabelos escuros, uma mão assinando um documento, duas mulheres se beijando com a palavra FAKE sobreposta e uma mulher ruiva de óculos escuros.',
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
-    ],
-  } satisfies MediaAssetProps,
+    lorena: {
+      id: 'synopsis-lorena',
+      relativePath: 'intro/synopsis/lorena.webp',
+      alt: 'Retrato de Lorena, de cabelos escuros, com a mão junto ao rosto.',
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
+      ],
+    },
+    contract: {
+      id: 'synopsis-contract',
+      relativePath: 'intro/synopsis/contract.webp',
+      alt: 'Mão assinando um documento com uma caneta-tinteiro.',
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
+      ],
+    },
+    fakeKiss: {
+      id: 'synopsis-fake-kiss',
+      relativePath: 'intro/synopsis/fake-kiss.webp',
+      alt: 'Duas mulheres se beijando, com a palavra FAKE sobreposta em vermelho.',
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
+      ],
+    },
+    eduarda: {
+      id: 'synopsis-eduarda',
+      relativePath: 'intro/synopsis/eduarda.webp',
+      alt: 'Retrato de Eduarda, ruiva e de óculos escuros, olhando por cima do ombro.',
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
+      ],
+    },
+  } satisfies Record<string, MediaAssetProps>,
 };
 
 export const IntroC: IntroBlockProps[] = [
@@ -22,8 +48,15 @@ export const IntroC: IntroBlockProps[] = [
     type: 'synopsis',
     title: SynopsisC.title,
     text: SynopsisC.text,
-    mediaId: SynopsisC.media.id,
-    source: SynopsisC.media.source,
+    mediaIds: [
+      SynopsisC.media.lorena.id,
+      SynopsisC.media.contract.id,
+      SynopsisC.media.fakeKiss.id,
+      SynopsisC.media.eduarda.id,
+    ],
+    source: [
+      'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
+    ],
   },
   {
     id: 'lorena-opening',
