@@ -1,0 +1,73 @@
+.title {
+  margin: 0 0 0.9em;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.text {
+  max-width: 40em;
+  margin: 0 0 1.5em;
+  font-size: 1.0625em;
+  line-height: 1.75;
+  text-align: justify;
+}
+
+.test {
+  margin: 2em 0;
+}
+
+.testTitle {
+  margin: 0 0 0.75em;
+  font-size: 1.125em;
+  line-height: 1.4;
+}
+
+.mediaLayout {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mediaItem {
+  display: block;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 0.375em;
+}
+
+.mediaItem[open] {
+  width: 100%;
+}
+
+.summary {
+  display: block;
+  cursor: pointer;
+}
+
+.closeIndicator {
+  display: none;
+  margin: 0.5em 0 0;
+  font-size: 0.875em;
+  text-align: right;
+}
+
+.mediaItem[open] .closeIndicator {
+  display: block;
+}
+
+.flowItem {
+  flex: 1 1 18em;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.375em;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}

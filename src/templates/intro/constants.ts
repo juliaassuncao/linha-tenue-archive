@@ -42,104 +42,110 @@ export const SynopsisC = {
   } satisfies Record<string, MediaAssetProps>,
 };
 
-export const IntroC: IntroBlockProps[] = [
-  {
-    id: 'synopsis',
-    type: 'synopsis',
-    title: SynopsisC.title,
-    text: SynopsisC.text,
-    mediaIds: [
-      SynopsisC.media.lorena.id,
-      SynopsisC.media.contract.id,
-      SynopsisC.media.fakeKiss.id,
-      SynopsisC.media.eduarda.id,
-    ],
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
-    ],
+export const IntroC = {
+  header: {
+    title: 'Linha Tênue',
+    subtitle: 'Archive Edition',
   },
-  {
-    id: 'lorena-opening',
-    type: 'character-opening',
-    characterId: LorenaC.character.id,
-    text: 'infos da lorena:\n\nperfil aberto / rant / squad / wallpaper',
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/002. Info Lorena.PNG',
-    ],
-  },
-  {
-    id: 'lorena-public-profile',
-    type: 'profile',
-    accountId: LorenaC.accounts.public.id,
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/003. Info Lorena.JPG',
-    ],
-  },
-  {
-    id: 'lorena-private-profile',
-    type: 'profile',
-    accountId: LorenaC.accounts.private.id,
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/004. Info Lorena.JPG',
-    ],
-  },
-  {
-    id: 'lorena-squad',
-    type: 'squad',
-    squadId: LorenaC.squad.id,
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/005. Info Lorena.JPG',
-    ],
-  },
-  {
-    id: 'lorena-wallpaper',
-    type: 'wallpaper',
-    characterId: LorenaC.character.id,
-    mediaId: LorenaC.media.wallpaper.id,
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/006. Info Lorena.JPG',
-    ],
-  },
-  {
-    id: 'eduarda-opening',
-    type: 'character-opening',
-    characterId: EduardaC.character.id,
-    text: 'infos da eduarda:\n\nperfil aberto / rant / squad / wallpaper',
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/007. Info Eduarda.PNG',
-    ],
-  },
-  {
-    id: 'eduarda-public-profile',
-    type: 'profile',
-    accountId: EduardaC.accounts.public.id,
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/008. Info Eduarda.JPG',
-    ],
-  },
-  {
-    id: 'eduarda-private-profile',
-    type: 'profile',
-    accountId: EduardaC.accounts.private.id,
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/009. Info Eduarda.JPG',
-    ],
-  },
-  {
-    id: 'eduarda-squad',
-    type: 'squad',
-    squadId: EduardaC.squad.id,
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/010. Info Eduarda.JPG',
-    ],
-  },
-  {
-    id: 'eduarda-wallpaper',
-    type: 'wallpaper',
-    characterId: EduardaC.character.id,
-    mediaId: EduardaC.media.wallpaper.id,
-    source: [
-      'archive/Info Linha Tênue - Leth Medveguillen/011. Info Eduarda.JPG',
-    ],
-  },
-];
+  blocks: [
+    {
+      id: 'synopsis',
+      type: 'synopsis',
+      title: SynopsisC.title,
+      text: SynopsisC.text,
+      mediaIds: [
+        SynopsisC.media.lorena.id,
+        SynopsisC.media.contract.id,
+        SynopsisC.media.fakeKiss.id,
+        SynopsisC.media.eduarda.id,
+      ],
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/001. Sinopse.PNG',
+      ],
+    },
+    {
+      id: 'lorena-opening',
+      type: 'character-opening',
+      characterId: LorenaC.character.id,
+      text: 'infos da lorena:\n\nperfil aberto / rant / squad / wallpaper',
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/002. Info Lorena.PNG',
+      ],
+    },
+    {
+      id: 'lorena-public-profile',
+      type: 'profile',
+      accountId: LorenaC.accounts.public.id,
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/003. Info Lorena.JPG',
+      ],
+    },
+    {
+      id: 'lorena-private-profile',
+      type: 'profile',
+      accountId: LorenaC.accounts.private.id,
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/004. Info Lorena.JPG',
+      ],
+    },
+    {
+      id: 'lorena-squad',
+      type: 'squad',
+      squadId: LorenaC.squad.id,
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/005. Info Lorena.JPG',
+      ],
+    },
+    {
+      id: 'lorena-wallpaper',
+      type: 'wallpaper',
+      characterId: LorenaC.character.id,
+      mediaId: LorenaC.media.wallpaper.id,
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/006. Info Lorena.JPG',
+      ],
+    },
+    {
+      id: 'eduarda-opening',
+      type: 'character-opening',
+      characterId: EduardaC.character.id,
+      text: 'infos da eduarda:\n\nperfil aberto / rant / squad / wallpaper',
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/007. Info Eduarda.PNG',
+      ],
+    },
+    {
+      id: 'eduarda-public-profile',
+      type: 'profile',
+      accountId: EduardaC.accounts.public.id,
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/008. Info Eduarda.JPG',
+      ],
+    },
+    {
+      id: 'eduarda-private-profile',
+      type: 'profile',
+      accountId: EduardaC.accounts.private.id,
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/009. Info Eduarda.JPG',
+      ],
+    },
+    {
+      id: 'eduarda-squad',
+      type: 'squad',
+      squadId: EduardaC.squad.id,
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/010. Info Eduarda.JPG',
+      ],
+    },
+    {
+      id: 'eduarda-wallpaper',
+      type: 'wallpaper',
+      characterId: EduardaC.character.id,
+      mediaId: EduardaC.media.wallpaper.id,
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/011. Info Eduarda.JPG',
+      ],
+    },
+  ] satisfies IntroBlockProps[],
+};

@@ -31,6 +31,25 @@ O CSS publicado deve conter somente estilos necessários ao conteúdo da obra. M
 
 Não exporte SCSS como se fosse CSS pronto. Não deixe o HTML publicado depender dos estilos exclusivos do preview. Use CSS compatível com o destino AO3; os recursos concretos deverão ser verificados no destino quando forem implementados.
 
+### Decisões de CSS para o conteúdo da obra
+
+O preview React do conteúdo destinado futuramente ao AO3 deve manter um layout traduzível para Work Skin. Isso também se aplica aos CSS Modules de Intro e Synopsis; funcionar no navegador local não comprova compatibilidade no destino.
+
+Neste projeto, não utilizar nesse conteúdo:
+
+- `@media`;
+- `gap`, `row-gap` ou `column-gap`;
+- CSS Grid, incluindo `display: grid`, `grid-template-columns` e `grid-template-rows`;
+- `object-fit`.
+
+Preferir fluxo normal do documento, HTML simples, `display: block`, `margin` para espaçamento, `padding`, `width` e `max-width`. Imagens usam `display: block`, `width: 100%`, `max-width: 100%` e `height: auto`, preservando sua proporção original. O container pai limita e centraliza a largura de leitura; não usar alturas fixas para enquadrar imagens. A versão atual também dispensa funções como `clamp` e unidades de viewport nos estilos do conteúdo, adotando valores simples em `em`, porcentagens e pixels. O [limpador de CSS do AO3](https://github.com/otwcode/otwarchive/blob/master/lib/css_cleaner.rb) valida tanto propriedades quanto seus valores.
+
+A sinopse apresenta quatro imagens em coluna única em desktop, tablet e celular, sem breakpoints: Lorena → contrato → fake kiss → Eduarda. Não reconstruir a montagem 2×2. Cada imagem é um link HTML para o próprio asset, sem modal, lightbox, estado ou eventos JavaScript. No preview, `href` e `src` derivam de `/assets/${media.relativePath}`; a futura exportação deverá resolver ambos para a URL pública correspondente.
+
+### Interações nativas de HTML
+
+`details` e `summary` estão permitidos na [configuração atual do sanitizer do AO3](https://github.com/otwcode/otwarchive/blob/master/config/initializers/gem-plugin_config/sanitizer_config.rb) e poderão servir futuramente para abrir/fechar conteúdo sem JavaScript, quando houver necessidade real. Não são usados na sinopse: suas quatro imagens permanecem visíveis normalmente.
+
 ## Responsividade e acessibilidade
 
 - Priorize leitura em celular, tablet e desktop, evitando layouts que exijam largura fixa para compreender o texto.

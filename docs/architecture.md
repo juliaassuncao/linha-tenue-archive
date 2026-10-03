@@ -71,7 +71,7 @@ scripts/
 | `src/constants/characters/lorena/constants.ts` | `LorenaC`: personagem, contas, squad com participantes e mídias de Lorena. |
 | `src/constants/characters/eduarda/constants.ts` | `EduardaC`: personagem, contas, squad com participantes e mídias de Eduarda. |
 | `src/templates/` | Composições editoriais concretas da INTRO e das atualizações. |
-| `src/templates/intro/constants.ts` | `SynopsisC`: título, texto e quatro mídias originais separadas; `IntroC`: sequência editorial sem numeração, referenciando os dados existentes. |
+| `src/templates/intro/constants.ts` | `SynopsisC`: título, texto e quatro mídias originais separadas; `IntroC`: cabeçalho em `header` e sequência editorial sem numeração em `blocks`, referenciando os dados existentes. |
 | `src/templates/intro/props.ts` | `IntroBlockProps`: contrato específico dos blocos da INTRO. |
 | `src/templates/updates/` | Destino futuro das atualizações originais, cada uma em sua pasta numerada; não implementado nesta etapa. |
 | `public/assets/` | Mídia adaptada/publicável, incluindo os arquivos físicos da INTRO. |
@@ -88,9 +88,13 @@ Uma atualização futura segue preferencialmente `src/templates/updates/001/`, c
 
 `relativePath` é relativo a `public/assets/`, sem o prefixo `/assets/`. `source` continua relativo a `source/` e aponta à proveniência histórica. Os assets físicos não substituem essa referência.
 
-As quatro imagens originais da sinopse permanecem em assets separados, na ordem Lorena → contrato → fake kiss → Eduarda. A composição visual da montagem será reconstruída futuramente por HTML/CSS no template da INTRO; essa apresentação ainda não foi implementada.
+As quatro imagens originais da sinopse permanecem em assets separados, na ordem Lorena → contrato → fake kiss → Eduarda, exibidas em coluna única com links individuais. A decisão atual não reconstrói a montagem 2×2: o preview React do conteúdo segue fluxo normal, margens e dimensões simples, conforme as [restrições de CSS para AO3](ao3-rules.md), para permitir a futura tradução para Work Skin sem redesenhar o layout.
 
 ## Convenções de código e componentes
+
+Componentes e arquivos `index.tsx` são responsáveis por composição e apresentação. Todo texto exibido ao leitor deve vir do `constants.ts` correspondente ao seu contexto, evitando strings editoriais hardcoded em JSX. Textos específicos da INTRO ficam em `src/templates/intro/constants.ts`; textos de uma atualização ficam em seu próprio `src/templates/updates/<numero>/constants.ts`, sem mover conteúdo local para constants globais. Labels de interface e títulos temporários de testes visuais também seguem essa convenção: os da Synopsis ficam em `src/templates/intro/synopsis/constants.ts`, inclusive para alternativas comentadas. Componentes reutilizáveis recebem o conteúdo por props.
+
+Todo texto que represente prosa ou narração, incluindo a sinopse, deve usar `text-align: justify` na classe específica desse conteúdo. Não aplicar essa regra globalmente a todos os elementos `<p>`. Títulos, labels, bios, mensagens e textos de interface mantêm o alinhamento definido pelo componente e não seguem automaticamente a regra de justificação.
 
 Em arquivos TypeScript/TSX, use aspas simples, ponto e vírgula ao final de statements, trailing commas em objetos, arrays e argumentos multilinha quando aplicável, e indentação de 2 espaços. Propriedades de objetos não levam aspas quando forem identificadores JavaScript válidos. `.prettierrc` registra o padrão local; não exige instalação de dependências nesta etapa. Aplicar formatação somente ao escopo da tarefa, preservando integralmente os textos transcritos.
 

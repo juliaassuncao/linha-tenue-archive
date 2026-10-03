@@ -1,0 +1,33 @@
+.wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 46em;
+  margin: 0 auto;
+  padding: 2.5em 1em 4em;
+}
+
+.header {
+  margin: 0 0 2.5em;
+  padding-bottom: 2em;
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.5em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 0.85em 0 0;
+  color: #595959;
+  font-size: 0.875em;
+  letter-spacing: 0.06em;
+}
+
+.content {
+  display: block;
+}

@@ -1,11 +1,7 @@
+import { Intro } from '@/templates/intro';
+
 function App() {
-  return (
-    <main className="preview">
-      <h1>Linha Tênue</h1>
-      <p className="preview-subtitle">Archive Edition</p>
-      <p className="preview-status">MVP — Informações iniciais</p>
-    </main>
-  )
+  return <Intro />;
 }
 
-export default App
+export default App;
