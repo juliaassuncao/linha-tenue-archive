@@ -91,19 +91,27 @@ Ao implementar o pipeline, conferir:
 5. Imagens necessárias usam URLs públicas e alternativas textuais apropriadas.
 6. O capítulo mantém o conteúdo e a divisão da atualização original indicada pela autora.
 
-## Spike de exportação da INTRO
+## Pipeline de exportação AO3
 
 ```text
-React local → renderToStaticMarkup → intro.html → Work Skin → AO3
+Registry explícito → templates React → renderToStaticMarkup
+  → preparação de HTML/assets → validação → fragmentos + Work Skin → AO3
 ```
 
-`src/export/ao3/render-intro.tsx` renderiza a mesma `Intro` com `react-dom/server`. `scripts/export-ao3-intro.mjs` usa `createServer` e `ssrLoadModule` do Vite para carregar os imports TSX, aliases e SCSS Modules. React e Vite são ferramentas de autoria; não são enviados ao AO3.
+`src/export/ao3/index.tsx` renderiza os mesmos templates do site com `react-dom/server`. `registry.tsx` declara os alvos disponíveis em ordem explícita; `types.ts` contém seus contratos; `assets.ts` concentra a preparação do HTML e das URLs; `validate.ts` concentra as validações. `scripts/export-ao3.mjs` é a única CLI e usa `createServer` e `ssrLoadModule` do Vite para carregar TSX, aliases e SCSS Modules. React e Vite não são enviados ao AO3.
 
-Execute:
+Comandos:
 
 ```sh
+npm run export:ao3
+npm run export:ao3 -- --intro
+npm run export:ao3 -- --chapter 001
 npm run export:ao3:intro
 ```
+
+Sem argumentos, exporta todos os alvos registrados. `--intro` exporta somente a Intro para QA. `export:ao3:intro` é um alias para essa mesma CLI com `--intro`, sem pipeline paralelo. `--chapter 001` seleciona um capítulo registrado e falha de forma controlada enquanto ele não existir. Atualmente há apenas a Intro; o comando geral informa `0 production chapters registered.`. Argumentos inválidos também geram uma mensagem curta e código de saída 1.
+
+A Intro é independente no site, mas não será capítulo 00 no AO3. Quando existir conteúdo real, o capítulo 001 reunirá Intro + Update 001, e 002 em diante conterão somente suas respectivas atualizações. A composição usa os mesmos componentes React, com `includeIntro` explícito no registry, sem duplicar markup. Não há Update 001 registrada nesta etapa.
 
 Para gerar URLs de publicação, defina uma base HTTPS pública que inclua o diretório dos assets. Exemplo em PowerShell, com domínio ilustrativo a substituir:
 
@@ -114,20 +122,22 @@ npm run export:ao3:intro
 
 A base não pode conter credenciais, query ou fragmento; as barras finais são normalizadas. Não há domínio padrão. A hospedagem dos arquivos e o teste real no AO3 são etapas externas ao comando.
 
-O comando gera em `dist/ao3/`:
+Todo export válido compila e valida `src/styles/workskin.scss` e sobrescreve `dist/ao3/workskin.css` após validar argumentos, alvos e base de assets. Um capítulo não registrado ou outra solicitação inválida falha com código 1 antes de compilar a Work Skin ou criar/alterar arquivos em `dist`. Essa é a única Work Skin de toda a obra; os estilos aprovados e as adaptações ao sanitizer permanecem nessa fonte. Não usar CSS de preview como dependência do fragmento publicado. `dist/ao3` é saída descartável, nunca fonte de verdade; não editar seus arquivos manualmente.
+
+Os alvos atuais geram em `dist/ao3/`:
 
 - `intro.html`: somente o fragmento da obra, para o editor HTML do AO3; sem documento externo, wrapper `#workskin`, scripts, estilos inline, preloads do React ou classes de CSS Modules.
 - `workskin.css`: compilação Sass de `src/styles/workskin.scss`, para o campo CSS de uma Work Skin. Os estilos foram traduzidos explicitamente dos CSS Modules aprovados; não há importação automática deles. Margens de `details`, fontes dos headings e bordas de `h3` são explicitadas para neutralizar estilos padrão do AO3.
 - `intro-preview.html`: documento local completo, com CSS da Work Skin, moldura de preview e wrapper `#workskin`; não é conteúdo para colar no AO3. Sem base externa, usa caminhos relativos a `public/assets` e pode ser aberto diretamente no navegador. Com base externa, usa as mesmas URLs HTTPS de `intro.html`.
 
-Sem `AO3_ASSET_BASE_URL`, o fragmento mantém `/assets/` e o comando avisa que a base pública é necessária antes do teste real. `npm run build` recria `dist`; execute o export depois do build.
+Sem `AO3_ASSET_BASE_URL`, somente a Intro de QA pode ser exportada: o fragmento mantém `/assets/` e o comando avisa que a base pública é necessária antes de publicar. Capítulos de produção recusam base ausente, inválida ou sem HTTPS com erro claro. A normalização e transformação são centralizadas, sem host hardcoded nos componentes. Capítulos reais terão fragmentos em `dist/ao3/chapters/001.html`, `002.html` etc.; previews completos são opcionais e separados. A validação de todos os fragmentos selecionados precede sua gravação. `npm run build` recria `dist`; execute o export depois do build.
 
 No Chat, o wallpaper é um `img` decorativo com `alt=""`, posicionado no topo da área de mensagens e recortado por `overflow`. As mensagens ficam em uma camada acima, mantendo padding, altura máxima e rolagem. Não há `background-image` nem `url()` na Work Skin. Nos assets atuais da INTRO, a imagem proporcional preenche a altura visível dos chats.
 
-Os avatares do header são renderizados a partir de uma cópia invertida de `headerAvatarMediaIds` e apresentados com `flex-direction: row-reverse`. A ordem visual original permanece e o primeiro item é pintado por último, acima dos seguintes. Não há `z-index` inline, classes por personagem ou quantidade fixa de avatares. Sem CSS, os avatares decorativos do header seguem a ordem inversa do DOM; a sequência textual das mensagens permanece intacta.
+Os avatares do header são renderizados a partir de uma cópia invertida de `headerAvatarMediaIds` e apresentados com `flex-direction: row-reverse`. A ordem visual original permanece e o primeiro item é pintado por último, acima dos seguintes. A Work Skin aplica o mesmo flex ao container e ao `<p>` intermediário inserido pelo AO3, zerando margem e padding desse parágrafo. A margem negativa à direita preserva a sobreposição com `row-reverse`. Não há `z-index` inline, classes por personagem ou quantidade fixa de avatares. Sem CSS, os avatares decorativos do header seguem a ordem inversa do DOM; a sequência textual das mensagens permanece intacta.
 
 O exportador rejeita scripts, estilos inline, atributos de eventos, `javascript:`, assets embutidos, tags incompatíveis com o fragmento, classes não estáveis e imagens sem `src`/`alt`. Com base externa, também rejeita caminhos locais restantes e URLs de imagem sem HTTPS. O CSS é validado contra `@media`, gap, Grid, `object-fit`, variáveis, `url()` e seletores fora de `#workskin`.
 
 O pipeline local foi validado com lint, build, export, estrutura dos blocos, URLs absolutas e testes de rejeição. O preview foi conferido em 320, 390, 768 e 1440 pixels, incluindo expansão nativa, prioridade dos avatares, imagens e leitura sem Work Skin. Isso não executa o sanitizer remoto nem comprova a aceitação final da Work Skin no AO3.
 
-Para encerrar o spike no destino: hospedar os assets, exportar com a base real, criar uma Work Skin com `workskin.css`, selecionar essa skin em um rascunho e colar `intro.html` no editor HTML. Conferir desktop/mobile, expansão, imagens, textos e leitura com a skin desativada antes de avançar às atualizações narrativas.
+A Intro foi validada em Preview real no AO3, conforme teste informado pela desenvolvedora. Preservar as adaptações aprovadas da Work Skin, inclusive resets e suporte ao `<p>` inserido no header dos squads. Para novas mudanças ou atualizações, exportar com assets públicos, aplicar a Work Skin ao rascunho, colar apenas o fragmento no editor HTML e repetir a conferência no AO3; o preview local não executa o sanitizer remoto.

@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "export:ao3:intro": "node scripts/export-ao3-intro.mjs"
+    "export:ao3": "node scripts/export-ao3.mjs",
+    "export:ao3:intro": "node scripts/export-ao3.mjs --intro"
   },
   "dependencies": {
     "react": "^19.2.8",

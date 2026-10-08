@@ -60,10 +60,14 @@ src/
   preview/
   export/
     ao3/
-      render-intro.tsx
+      index.tsx
+      registry.tsx
+      types.ts
+      assets.ts
+      validate.ts
   styles/
 scripts/
-  export-ao3-intro.mjs
+  export-ao3.mjs
 ```
 
 | Diretório | Responsabilidade |
@@ -85,8 +89,12 @@ scripts/
 | `src/preview/` | Interface exclusiva do ambiente local de desenvolvimento. |
 | `src/styles/` | Estilos destinados ao AO3 e estilos exclusivos do preview, separados entre si. |
 | `scripts/` | Exportadores, validadores e ferramentas do projeto. |
-| `src/export/ao3/render-intro.tsx` | Renderização estática da mesma INTRO usada pelo site, via `react-dom/server`. |
-| `scripts/export-ao3-intro.mjs` | Carregamento SSR pelo Vite, preparação do fragmento AO3, resolução externa de assets, compilação e validação da Work Skin e gravação em `dist/ao3`. |
+| `src/export/ao3/index.tsx` | Renderização estática única e composição de capítulos com os mesmos templates React do site. |
+| `src/export/ao3/registry.tsx` | Registry explícito e ordenado dos alvos realmente disponíveis, sem descoberta automática de arquivos. |
+| `src/export/ao3/types.ts` | Contratos locais dos alvos e da composição de capítulos. |
+| `src/export/ao3/assets.ts` | Normalização da base HTTPS, preparação do fragmento e transformação única dos caminhos de assets. |
+| `src/export/ao3/validate.ts` | Validações compartilhadas de HTML e CSS. |
+| `scripts/export-ao3.mjs` | CLI única: carregamento SSR pelo Vite, seleção de alvos, compilação da Work Skin, validação e gravação em `dist/ao3`. |
 | `src/utils/resolve-asset-url.ts` | Resolução única dos caminhos internos para `/assets/...` nos componentes. |
 
 Os contratos compartilhados ficam em `src/constants/props.ts`, com exports explícitos: `CharacterProps`, `SocialAccountProps`, `ChatContentProps`, `ChatMessageProps`, `MediaAssetProps` e `CharacterContentProps`. `IntroBlockProps` pertence a `src/templates/intro/props.ts`. Props específicas de componente ou template permanecem junto de seu contexto. Não exportar um tipo genérico chamado apenas `Props`. Os arquivos de tipos/props contêm somente imports necessários e declarações de tipos, sem comentários ou JSDoc; explicações permanecem nos documentos do projeto. `src/types` não é catálogo global de domínio; poderá ser recriado para declarações realmente globais, como `global.d.ts`, quando houver necessidade.
@@ -149,9 +157,40 @@ src/styles/workskin.scss  → somente estilos do conteúdo publicado
 src/styles/preview.scss   → somente interface e ferramentas locais
 ```
 
-`npm run export:ao3:intro` compila o SCSS da Work Skin e renderiza a INTRO por SSR do Vite, preservando o site com CSS Modules e publicando somente classes estáveis `lt-*`. A tradução da Work Skin é explícita e separada dos módulos. A publicação recebe somente HTML estático, CSS e imagens externas. Contêineres sem suporte no sanitizer são convertidos para `div` somente no fragmento exportado; o site conserva sua semântica. O fluxo e os limites de validação estão nas [regras para AO3](ao3-rules.md#spike-de-exportação-da-intro).
+O pipeline único segue:
 
-`resolveAssetUrl` resolve caminhos internos para arquivos locais nos componentes. O exporter aplica `AO3_ASSET_BASE_URL` aos atributos de mídia do HTML estático, sem prop drilling ou acoplamento dos componentes à hospedagem. Mudar a hospedagem não exige reescrever os dados narrativos. A aceitação em um rascunho real do AO3 ainda depende de assets públicos e da validação na plataforma.
+```text
+templates React → registry AO3 → renderização estática
+  → preparação de HTML/assets → validação → dist/ao3
+```
+
+Não há uma versão duplicada da INTRO para o AO3. CSS Modules permanecem no site; o fragmento exportado conserva somente classes estáveis `lt-*`. Contêineres incompatíveis com o sanitizer são convertidos para `div` apenas na exportação. O fluxo e os comandos estão nas [regras para AO3](ao3-rules.md#pipeline-de-exportação-ao3).
+
+`src/styles/workskin.scss` é a fonte de verdade de uma única Work Skin compartilhada por toda a obra. Todo export válido compila, valida e sobrescreve `dist/ao3/workskin.css`, após validar os argumentos, selecionar os alvos no registry e conferir a base de assets. Solicitações inválidas falham antes de compilar a Work Skin ou escrever em `dist`. Não há uma skin por capítulo nem reaproveitamento silencioso de CSS antigo. A tradução dos CSS Modules permanece explícita; estilos de atualizações futuras serão acrescentados nessa mesma fonte quando houver conteúdo aprovado. `dist/ao3` contém artefatos descartáveis: não editar seus arquivos manualmente. `npm run build` recria `dist`; exportar depois do build.
+
+`resolveAssetUrl` resolve caminhos internos para arquivos locais nos componentes. `assets.ts` aplica `AO3_ASSET_BASE_URL` aos atributos de mídia do HTML estático, sem prop drilling ou acoplamento dos componentes à hospedagem. Mudar a hospedagem não exige reescrever os dados narrativos. Intro isolada admite caminhos locais para QA; capítulos de produção exigem uma base pública HTTPS.
+
+### Mapeamento editorial do site para AO3
+
+No site, a INTRO permanece uma apresentação independente. No AO3, a INTRO isolada é somente um alvo de QA, nunca um capítulo 00. O primeiro capítulo de produção será INTRO + Update 001; os seguintes conterão somente a atualização correspondente, preservando seus limites autorais.
+
+O registry contém atualmente apenas o alvo `intro`, com zero capítulos de produção registrados. Não cadastrar uma atualização antes de seu template real existir. A seleção é explícita e respeita a ordem do registry, sem varrer pastas, criar placeholders ou inferir capítulos dos screenshots.
+
+Quando a Update 001 existir, importar seu componente no registry e acrescentar uma entrada equivalente a este exemplo documental:
+
+```ts
+{
+  id: '001',
+  type: 'chapter',
+  chapterNumber: 1,
+  updateId: '001',
+  includeIntro: true,
+  update: Update001,
+  filename: 'chapters/001.html',
+}
+```
+
+`renderAo3Chapter` compõe a Intro opcional e o componente de atualização; `renderAo3Target` realiza a única chamada de renderização estática. Para 002 e posteriores, usar `includeIntro: false`. Um `previewFilename` pode ser registrado quando um preview local for útil; é um documento de QA separado do fragmento publicável. O exemplo não cria conteúdo, diretório ou metadados da Update 001 nesta etapa.
 
 ## MVP e evolução
 
@@ -161,4 +200,4 @@ Ele deve validar dados de personagens, contas públicas e privadas, apresentaç�
 
 Prefira soluções simples, componentes pequenos, tipos explícitos, reutilização, HTML semântico, acessibilidade e manutenção futura. Evite abstrações prematuras, bibliotecas desnecessárias, dependências visuais externas, duplicação e acoplamento entre dados e interface. Não considere suficiente uma solução que funcione apenas no preview React.
 
-Implemente primeiro o necessário para o MVP. Novos modelos e componentes surgirão conforme formatos reais da história exigirem; contratos compartilhados estão em `src/constants/props.ts` e o contrato da INTRO em `src/templates/intro/props.ts`; formatos futuros e a implementação do exportador não são antecipados.
+Implemente primeiro o necessário para o MVP. Novos modelos e componentes surgirão conforme formatos reais da história exigirem; contratos compartilhados estão em `src/constants/props.ts` e o contrato da INTRO em `src/templates/intro/props.ts`; formatos futuros não são antecipados. O exportador genérico está disponível, sem implementar atualizações narrativas.
