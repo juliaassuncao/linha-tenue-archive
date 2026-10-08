@@ -2,10 +2,9 @@ import { SynopsisPreviewC } from './constants';
 import type { SynopsisProps } from './props';
 import S from './styles.module.scss';
 
-export function Synopsis({ title, text, media }: SynopsisProps) {
+export function Synopsis({ text, media }: SynopsisProps) {
   return (
     <section>
-      <h2 className={S.title}>{title}</h2>
       <p className={S.text}>{text}</p>
       <section className={S.test}>
         <div className={S.mediaLayout}>

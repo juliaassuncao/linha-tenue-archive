@@ -12,7 +12,6 @@ export const Intro = () => {
       </header>
       <div className={S.content}>
         <Synopsis
-          title={SynopsisC.title}
           text={SynopsisC.text}
           media={[
             SynopsisC.media.lorena,
@@ -25,12 +24,16 @@ export const Intro = () => {
           <CharacterSection
             key={id}
             title={title}
+            labels={IntroC.contentLabels}
             publicAccount={data.accounts.public}
             publicAvatar={data.media.publicAvatar}
             publicBanner={data.media.publicBanner}
             privateAccount={data.accounts.private}
             privateAvatar={data.media.privateAvatar}
             privateBanner={data.media.privateBanner}
+            squad={data.squad}
+            media={data.media}
+            wallpaper={data.media.wallpaper}
           />
         ))}
       </div>

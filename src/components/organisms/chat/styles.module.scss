@@ -1,0 +1,90 @@
+.chat,
+.messages {
+  box-sizing: border-box;
+}
+
+.chat {
+  width: 100%;
+  max-width: 380px;
+  margin: 3em auto;
+  overflow: hidden;
+  border: 1px solid #d8dee4;
+  background-color: #f0edf1;
+  border-radius: 18px;
+  color: #22262b;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
+  border-bottom: 1px solid #d8d0dc;
+  background-color: #ffffff;
+
+  > img {
+    width: 24px;
+    height: auto;
+  }
+}
+
+.titleContainer {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding-top: 48px;
+  text-align: center;
+}
+
+.avatarsContainer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+}
+
+.headerAvatar {
+  position: relative;
+  display: block;
+  flex: 0 1 46px;
+  width: 42px;
+  min-width: 0;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+}
+
+.headerAvatar + .headerAvatar {
+  margin-left: -20px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1.3;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.messages {
+  max-height: 32em;
+  padding: 1.5em 0.4em 0.25em;
+  overflow-y: auto;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

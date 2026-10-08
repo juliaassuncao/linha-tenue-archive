@@ -8,13 +8,13 @@
 
 .header {
   margin: 0 0 2.5em;
-  padding-bottom: 2em;
-  border-bottom: 1px solid #dedede;
   text-align: center;
 }
 
 .title {
   margin: 0;
+  padding-bottom: 0.75em;
+  border-bottom: 1px solid #dedede;
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 2.5em;
   font-weight: 600;
@@ -22,10 +22,11 @@
 }
 
 .subtitle {
-  margin: 0.85em 0 0;
+  margin: 1.5em 0 0;
+  text-align: center;
+  font-size: 0.85em;
+  letter-spacing: 0.08em;
   color: #595959;
-  font-size: 0.875em;
-  letter-spacing: 0.06em;
 }
 
 .content {

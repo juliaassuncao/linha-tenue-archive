@@ -46,9 +46,15 @@ export const EduardaC = {
   },
   squad: {
     id: 'eduarda-squad',
-    name: 'quase sempre amigos',
-    characterId: 'eduarda',
-    participants: [
+    title: 'quase sempre amigos',
+    kind: 'group',
+    headerAvatarMediaIds: [
+      'eduarda-squad-gerluce-avatar',
+      'eduarda-squad-paulinho-avatar',
+      'eduarda-squad-isabela-avatar',
+      'eduarda-squad-eduarda-avatar',
+    ],
+    messages: [
       {
         id: 'eduarda',
         text: 'eduarda',
@@ -56,21 +62,21 @@ export const EduardaC = {
       },
       {
         id: 'paulinho',
-        label: 'paulinho assessoria',
+        senderName: 'paulinho assessoria',
         text: 'paulinho',
         avatarMediaId: 'eduarda-squad-paulinho-avatar',
         direction: 'incoming',
       },
       {
         id: 'isabela',
-        label: 'isa alencar',
+        senderName: 'isa alencar',
         text: 'isabela',
         avatarMediaId: 'eduarda-squad-isabela-avatar',
         direction: 'incoming',
       },
       {
         id: 'gerluce',
-        label: 'gerluce cunhada',
+        senderName: 'gerluce cunhada',
         text: 'gerluce',
         avatarMediaId: 'eduarda-squad-gerluce-avatar',
         direction: 'incoming',
@@ -134,6 +140,14 @@ export const EduardaC = {
       id: 'eduarda-squad-gerluce-avatar',
       relativePath: 'intro/eduarda/squad/gerluce.webp',
       alt: 'Retrato de uma mulher com a cabeça apoiada no braço, vestindo uma camisa clara.',
+      source: [
+        'archive/Info Linha Tênue - Leth Medveguillen/010. Info Eduarda.JPG',
+      ],
+    },
+    squadEduardaAvatar: {
+      id: 'eduarda-squad-eduarda-avatar',
+      relativePath: 'intro/eduarda/squad/eduarda.webp',
+      alt: 'Retrato de uma mulher ruiva com roupa clara, olhando por cima do ombro diante de folhagens.',
       source: [
         'archive/Info Linha Tênue - Leth Medveguillen/010. Info Eduarda.JPG',
       ],

@@ -1,0 +1,79 @@
+.message {
+  display: flex;
+  align-items: flex-end;
+  width: fit-content;
+  max-width: 70%;
+  margin: 0 0.5em 0.5em;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.incoming {
+  margin-right: auto;
+
+  .bubble::after {
+    left: -0.5em;
+    border-right: 0.5em solid #ffffff;
+    border-bottom-right-radius: 1em 0.5em;
+  }
+}
+
+.outgoing {
+  margin-left: auto;
+
+  .bubble {
+    color: #ffffff;
+    background-color: #007aff;
+
+    &::after {
+      right: -0.5em;
+      border-left: 0.5em solid #007aff;
+      border-bottom-left-radius: 1em 0.5em;
+    }
+  }
+}
+
+.avatar {
+  display: block;
+  flex: 0 0 auto;
+  width: 2.25em;
+  height: auto;
+  margin-right: 0.5em;
+  border-radius: 50%;
+}
+
+.bubble {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.4em 1em;
+  border-radius: 1.5em;
+  color: #000000;
+  background-color: #ffffff;
+  line-height: 1.5;
+  white-space: pre-wrap;
+
+  &::after {
+    content: '';
+    box-sizing: content-box;
+    position: absolute;
+    bottom: 0;
+    width: 0.5em;
+    height: 1em;
+  }
+}
+
+.content {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.senderName {
+  margin: 0 0 0.3em;
+  color: #ffffff9f;
+  font-size: 0.8em;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px #000000;
+}

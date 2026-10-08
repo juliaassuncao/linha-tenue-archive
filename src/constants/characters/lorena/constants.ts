@@ -46,9 +46,15 @@ export const LorenaC = {
   },
   squad: {
     id: 'lorena-squad',
-    name: 'melhor squad do mundo',
-    characterId: 'lorena',
-    participants: [
+    title: 'melhor squad do mundo',
+    kind: 'group',
+    headerAvatarMediaIds: [
+      'lorena-squad-leo-avatar',
+      'lorena-squad-viviane-avatar',
+      'lorena-squad-maggye-avatar',
+      'lorena-squad-lorena-avatar',
+    ],
+    messages: [
       {
         id: 'lorena',
         text: 'lorena',
@@ -56,27 +62,27 @@ export const LorenaC = {
       },
       {
         id: 'leo',
-        label: 'léo assessoria (e irmão)',
+        senderName: 'léo assessoria (e irmão)',
         text: 'léo',
         avatarMediaId: 'lorena-squad-leo-avatar',
         direction: 'incoming',
       },
       {
         id: 'maggye',
-        label: 'maggye best',
+        senderName: 'maggye best',
         text: 'maggye',
         avatarMediaId: 'lorena-squad-maggye-avatar',
         direction: 'incoming',
       },
       {
         id: 'viviane',
-        label: 'vi cunhadinha',
+        senderName: 'vi cunhadinha',
         text: 'viviane',
         avatarMediaId: 'lorena-squad-viviane-avatar',
         direction: 'incoming',
       },
     ],
-    backgroundMediaId: 'lorena-squad-background',
+    backgroundMediaId: 'lorena-wallpaper',
     source: [
       'archive/Info Linha Tênue - Leth Medveguillen/005. Info Lorena.JPG',
     ],
@@ -138,10 +144,10 @@ export const LorenaC = {
         'archive/Info Linha Tênue - Leth Medveguillen/005. Info Lorena.JPG',
       ],
     },
-    squadBackground: {
-      id: 'lorena-squad-background',
-      relativePath: 'intro/lorena/squad/background.webp',
-      alt: 'Fundo vinho escuro da apresentação do squad.',
+    squadLorenaAvatar: {
+      id: 'lorena-squad-lorena-avatar',
+      relativePath: 'intro/lorena/squad/lorena.webp',
+      alt: 'Retrato de uma mulher de cabelos escuros presos, olhando de lado.',
       source: [
         'archive/Info Linha Tênue - Leth Medveguillen/005. Info Lorena.JPG',
       ],

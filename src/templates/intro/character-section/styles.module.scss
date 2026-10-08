@@ -9,3 +9,45 @@
   font-size: 1.5em;
   line-height: 1.2;
 }
+
+.section + .section {
+  margin-top: 5em;
+  padding-top: 3em;
+  border-top: 1px solid #dedede;
+}
+
+.contentLabel {
+  width: 100%;
+  max-width: 540px;
+  margin: 3em auto 0.75em;
+  font-size: 1em;
+  font-weight: 600;
+  color: #4b4b4b;
+  text-align: center;
+}
+
+.chatLabel {
+  max-width: 380px;
+}
+
+.wallpaperLabel {
+  max-width: 300px;
+}
+
+.contentLabel + article,
+.contentLabel + .wallpaper {
+  margin-top: 0;
+}
+
+.wallpaper {
+  width: 100%;
+  max-width: 300px;
+  margin: 3em auto 0;
+
+  img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+}

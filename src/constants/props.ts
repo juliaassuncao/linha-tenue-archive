@@ -21,19 +21,20 @@ export interface SocialAccountProps {
   source: string[];
 }
 
-export interface SquadParticipantProps {
+export interface ChatMessageProps {
   id: string;
-  label?: string;
   text: string;
-  avatarMediaId?: string;
   direction: 'incoming' | 'outgoing';
+  senderName?: string;
+  avatarMediaId?: string;
 }
 
-export interface SquadProps {
+export interface ChatContentProps {
   id: string;
-  name: string;
-  characterId: string;
-  participants: SquadParticipantProps[];
+  title: string;
+  kind: 'group' | 'direct';
+  headerAvatarMediaIds?: string[];
+  messages: ChatMessageProps[];
   backgroundMediaId?: string;
   source: string[];
 }
@@ -51,6 +52,6 @@ export interface CharacterContentProps {
     public: SocialAccountProps;
     private: SocialAccountProps;
   };
-  squad: SquadProps;
+  squad: ChatContentProps;
   media: Record<string, MediaAssetProps>;
 }

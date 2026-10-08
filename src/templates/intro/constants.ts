@@ -54,7 +54,13 @@ export const CharacterSectionsC = [
 export const IntroC = {
   header: {
     title: 'Linha Tênue',
-    subtitle: 'Archive Edition',
+    subtitle: 'au loquinha | archive edition',
+  },
+  contentLabels: {
+    publicProfile: 'perfil aberto',
+    privateProfile: 'rant',
+    squad: 'squad',
+    wallpaper: 'wallpaper',
   },
   blocks: [
     {

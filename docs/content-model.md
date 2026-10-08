@@ -4,7 +4,7 @@
 
 Os dados estruturados são a fonte de verdade da edição adaptada. Screenshots arquivados são a fonte histórica para transcrição e QA. Componentes React apresentam os dados sem embutir conteúdo específico da história em sua implementação.
 
-O primeiro modelo preserva os seis conceitos comprovados pelo material introdutório: `CharacterProps`, `SocialAccountProps`, `SquadProps`, `SquadParticipantProps`, `MediaAssetProps` e `IntroBlockProps`. Os contratos compartilhados ficam em `src/constants/props.ts`; `IntroBlockProps`, específico da composição da INTRO, fica em `src/templates/intro/props.ts`. `CharacterContentProps` agrega os dados de uma protagonista sem alterar esses contratos. Novos formatos só serão modelados quando houver evidência e necessidade. Os dados persistentes ficam em `src/constants/characters/` e a composição em `src/templates/intro/`; seus assets físicos permanecem em `public/assets/intro/`. O resolvedor de assets permanece futuro.
+O primeiro modelo preserva os seis conceitos comprovados pelo material introdutório: `CharacterProps`, `SocialAccountProps`, `ChatContentProps`, `ChatMessageProps`, `MediaAssetProps` e `IntroBlockProps`. Os contratos compartilhados ficam em `src/constants/props.ts`; `IntroBlockProps`, específico da composição da INTRO, fica em `src/templates/intro/props.ts`. `CharacterContentProps` agrega os dados de uma protagonista sem alterar esses contratos. Novos formatos só serão modelados quando houver evidência e necessidade. Os dados persistentes ficam em `src/constants/characters/` e a composição em `src/templates/intro/`; seus assets físicos permanecem em `public/assets/intro/`. O resolvedor de assets permanece futuro.
 
 ## INTRO, UPDATE e CHAPTER
 
@@ -44,7 +44,7 @@ As constants usam propriedades sem aspas quando forem identificadores válidos, 
 
 ## IDs e referências
 
-Use IDs estáveis em string, nunca derivados de índices de arrays. Contas e squads apontam à personagem por `characterId`. Referências a mídia guardam IDs de `MediaAssetProps`, sem copiar caminhos ou URLs nas entidades consumidoras.
+Use IDs estáveis em string, nunca derivados de índices de arrays. Contas apontam à personagem por `characterId`. Chats não possuem `characterId`; na INTRO, o contexto da squad vem de `LorenaC.squad` ou `EduardaC.squad`. Referências a mídia guardam IDs de `MediaAssetProps`, sem copiar caminhos ou URLs nas entidades consumidoras.
 
 Essas referências são strings no primeiro modelo. TypeScript verifica a forma dos objetos, mas não comprova a existência dos IDs referenciados, a relatividade dos caminhos ou a correspondência entre arquivos históricos. Essas relações devem ser conferidas na futura autoria/QA; não há validação externa nesta etapa.
 
@@ -56,11 +56,11 @@ Os contratos compartilhados ficam em `src/constants/props.ts`; `IntroBlockProps`
 | --- | --- |
 | `CharacterProps` | `id`, `name`, `source`. Identidade principal sem duplicar dados das contas. |
 | `SocialAccountProps` | `id`, `characterId`, `kind`, `displayName`, `username`, `bio`, `verified`, `following`, `followers`, `avatarMediaId`, `bannerMediaId`, `source`; opcionais `location` e `websiteLabel`. |
-| `SquadProps` | `id`, `name`, `characterId`, `participants`, `source`; `backgroundMediaId` opcional. Apresentação de grupo, sem associação a WhatsApp. |
-| `SquadParticipantProps` | `id` local, `text`, `direction`; opcionais `label` e `avatarMediaId`. Existe dentro do squad, sem cadastro global independente. |
+| `ChatContentProps` | `id`, `title`, `kind: 'group' \| 'direct'`, `messages: ChatMessageProps[]`, `source`; opcionais `headerAvatarMediaIds: string[]` e `backgroundMediaId`. Conteúdo genérico de chat, sem `characterId`. |
+| `ChatMessageProps` | `id` local, `text`, `direction`; opcionais `senderName` e `avatarMediaId`. Existe dentro do chat, sem cadastro global independente. |
 | `MediaAssetProps` | `id`, `relativePath`, `alt`, `source`. Mídia referenciada por ID e substituível sem alterar seus consumidores. |
 | `IntroBlockProps` — `src/templates/intro/props.ts` | Union discriminada por `type`, com `id` e `source` em cada variante; organiza texto editorial e referências, sem duplicar entidades. |
-| `CharacterContentProps` | `character: CharacterProps`, `accounts` com `public` e `private` (`SocialAccountProps`), `squad: SquadProps` e `media: Record<string, MediaAssetProps>`. Agrega o conjunto de dados de uma protagonista. |
+| `CharacterContentProps` | `character: CharacterProps`, `accounts` com `public` e `private` (`SocialAccountProps`), `squad: ChatContentProps` e `media: Record<string, MediaAssetProps>`. Agrega o conjunto de dados de uma protagonista. |
 
 ### Personagens e contas
 
@@ -68,15 +68,23 @@ Os contratos compartilhados ficam em `src/constants/props.ts`; `IntroBlockProps`
 
 `following` e `followers` são strings preservadas exatamente como exibidas, incluindo abreviações. `websiteLabel` é apenas o texto do perfil: não presumir protocolo, endereço real ou link funcional.
 
-`avatarMediaId` e `bannerMediaId` guardam IDs de mídia. Capas tipográficas continuam sendo imagens; não reconstruir lettering complexo em HTML. Contas e squads se associam à personagem sem exigir listas duplicadas em `CharacterProps`.
+`avatarMediaId` e `bannerMediaId` guardam IDs de mídia. Capas tipográficas continuam sendo imagens; não reconstruir lettering complexo em HTML. Contas se associam à personagem por `characterId`, sem exigir listas duplicadas em `CharacterProps`. A squad permanece no agregado da protagonista, sem repetir essa associação no chat.
 
-### Squads e participantes
+### Chats e squads da INTRO
 
-Squads são apresentações visuais específicas de grupo. Não são WhatsApp nem um modelo universal de chat.
+`squad` é um contexto editorial da INTRO: a apresentação do grupo de cada protagonista. A propriedade permanece em `CharacterContentProps`, mas seu conteúdo utiliza o modelo genérico `ChatContentProps`, com mensagens `ChatMessageProps`, sem pressupor uma plataforma específica. Esses contratos serão reutilizados posteriormente pelas conversas dos updates. O componente visual futuro será `Chat`; não criar um componente `Squad` específico. A implementação visual de `Chat` e `ChatMessage` permanece fora desta refatoração.
 
-Preserve somente o que estiver visível. Não complete nomes, sobrenomes, usernames, relações ou biografias. `label` guarda o rótulo de contato; `text` guarda o texto da apresentação/balão. Ambos são distintos. `label` e `avatarMediaId` podem faltar no balão enviado pela protagonista.
+`kind` identifica explicitamente um chat de grupo (`'group'`) ou direto (`'direct'`), sem inferência pelo conteúdo das mensagens. As squads de Lorena e Eduarda usam `'group'`. `Chat` determina a exibição do remetente por `kind === 'group'` e `direction === 'incoming'`; `ChatMessage` recebe essa decisão em `showSenderName` e só renderiza o nome quando `senderName` existe, fora do balão e imediatamente acima dele. Chats diretos e mensagens outgoing não exibem o nome nem reservam espaço para ele. Essa regra não remove `senderName` dos dados.
 
-A ordem do array `participants` é a única fonte de verdade para a sequência editorial/visual. `direction` é obrigatório e usa `'incoming' | 'outgoing'`, sempre relativo à personagem de referência do squad; não inferir essa informação apenas pelo alinhamento. `backgroundMediaId` é uma referência opcional a mídia; não presume reutilização de um wallpaper apenas por semelhança.
+Preserve somente o que estiver visível. Não complete nomes, sobrenomes, usernames, relações ou biografias. `senderName` guarda o nome/rótulo de contato do remetente; `text` guarda o texto da apresentação/balão. Ambos são distintos. `senderName` e `avatarMediaId` podem faltar no balão enviado pela protagonista.
+
+A ordem do array `messages` é a única fonte de verdade para a sequência editorial/visual. `direction` é obrigatório e usa `'incoming' | 'outgoing'`, relativo ao contexto de referência do chat (na INTRO, a protagonista cuja squad está sendo apresentada); não inferir essa informação apenas pelo alinhamento. `avatarMediaId` nas mensagens e `backgroundMediaId` no chat são referências a assets por ID, sem duplicar `MediaAssetProps`, `relativePath`, `alt` ou `source`. O fundo é opcional no contrato genérico. Nos chats de cada protagonista, incluindo o squad, usar o wallpaper normal da respectiva personagem: `lorena-wallpaper` ou `eduarda-wallpaper`. Não existe wallpaper especial de squad.
+
+`headerAvatarMediaIds` representa, em ordem visual, os avatares exibidos no cabeçalho daquele chat naquele momento da narrativa. É uma configuração própria do header, sem inferência por `messages`, `senderName`, `avatarMediaId` das mensagens, `kind` ou quantidade de participantes. Um chat direto pode ter um avatar; um grupo pode ter vários. A lista não representa necessariamente todas as pessoas que já enviaram mensagens: se alguém sair de um grupo, um update posterior pode configurar outros avatares, mesmo mantendo mensagens históricas dessa pessoa. Não sincronizar automaticamente `messages` e `headerAvatarMediaIds`.
+
+O componente `Chat` resolve os IDs em `mediaById`, com registros `MediaAssetProps`, e usa os caminhos e textos alternativos existentes. Sem configuração, com lista vazia ou com todos os IDs ausentes no catálogo recebido, o header continua renderizando sem avatares. IDs não resolvidos são ignorados, preservando a ordem dos demais.
+
+Na INTRO, os IDs cadastrados permitem apresentar léo → viviane → maggye no header da Lorena e gerluce → paulinho → isabela no da Eduarda, na ordem da fonte. Os avatares das próprias protagonistas presentes no header original ainda não têm registros correspondentes em `media`; não substituir por avatares de perfis nem inventar novos assets.
 
 ### Mídia
 
@@ -90,7 +98,7 @@ Os 21 WebP atuais incluem quatro assets originais da sinopse e 17 assets dos dem
 
 Para arquivos ausentes no futuro, `MediaPreview` apresenta um placeholder explícito de desenvolvimento sem modificar o catálogo ou criar imagem substituta. Ele permanece em `src/preview/components/media-preview/`, separado do domínio, da Work Skin e da exportação AO3; o resolvedor definitivo continua fora desta etapa.
 
-O catálogo físico da INTRO possui 21 assets WebP: quatro imagens originais da sinopse, oito mídias de perfis, seis avatares de squads, dois wallpapers completos e um recorte de fundo do squad de Lorena. Os arquivos da sinopse são `intro/synopsis/lorena.webp`, `intro/synopsis/contract.webp`, `intro/synopsis/fake-kiss.webp` e `intro/synopsis/eduarda.webp`, relativos a `public/assets/`. O squad de Eduarda reutiliza `eduarda-wallpaper`: as cortinas e os detalhes da fotografia correspondem ao fundo observado. O fundo de Lorena permanece separado porque o squad não mostra a frase do wallpaper; o asset é um recorte dos pixels históricos visíveis, sem substituir o wallpaper real por uma cor CSS.
+O catálogo físico da INTRO possui 21 assets WebP: quatro imagens originais da sinopse, oito mídias de perfis, seis avatares de squads, dois wallpapers completos e um recorte de fundo do squad de Lorena. Os arquivos da sinopse são `intro/synopsis/lorena.webp`, `intro/synopsis/contract.webp`, `intro/synopsis/fake-kiss.webp` e `intro/synopsis/eduarda.webp`, relativos a `public/assets/`. Os squads e os demais chats usam o mesmo wallpaper da respectiva personagem: `lorena-wallpaper` para Lorena e `eduarda-wallpaper` para Eduarda. O recorte de fundo do squad de Lorena não é usado pela apresentação; não há registro `squadBackground` no catálogo de dados.
 
 Os wallpapers preservam a composição e proporção das mídias standalone. Os avatares usam recortes quadrados internos aos retratos circulares para excluir interface. As capas usam regiões sem controles ou retratos sobrepostos, com perda de enquadramento nas áreas indisponíveis; não há reconstrução de pixels ocultos, upscale, filtros ou preenchimento generativo. Nenhum asset é um screenshot completo de interface.
 
@@ -101,14 +109,14 @@ As variantes são exclusivamente:
 - `synopsis`: `title`, `text` e `mediaIds: string[]` das quatro imagens, na ordem Lorena → contrato → fake kiss → Eduarda, referenciando `SynopsisC.media.lorena.id`, `SynopsisC.media.contract.id`, `SynopsisC.media.fakeKiss.id` e `SynopsisC.media.eduarda.id`. Somente essa variante utiliza um array de IDs de mídia.
 - `character-opening`: `characterId` e `text` de abertura.
 - `profile`: `accountId`, sem repetir dados do perfil.
-- `squad`: `squadId`, sem repetir participantes.
+- `squad`: `squadId`, sem repetir mensagens.
 - `wallpaper`: `characterId` e `mediaId`, para os wallpapers apresentados por personagem. Não existe bloco genérico de mídia nesta etapa.
 
-A ordem do array de blocos define a sequência editorial. IDs de blocos permanecem estáveis independentemente de sua posição. Não modelar agora tweets narrativos, notícias, chats ou outros formatos ausentes deste material.
+A ordem do array de blocos define a sequência editorial. IDs de blocos permanecem estáveis independentemente de sua posição. Os contratos genéricos de chat estão definidos para o conteúdo atual das squads; não cadastrar conversas dos updates nem modelar agora tweets narrativos, notícias ou outros formatos ausentes deste material.
 
 ## Rastreabilidade com `source`
 
-Personagens, contas, squads, mídia e blocos guardam `source: string[]`. Participantes usam a fonte do squad que os contém. Os caminhos são relativos a `source/`, por exemplo:
+Personagens, contas, chats (incluindo squads), mídia e blocos guardam `source: string[]`. Mensagens usam a fonte do chat que as contém. Os caminhos são relativos a `source/`, por exemplo:
 
 ```text
 archive/Info Linha Tênue - Leth Medveguillen/003. Info Lorena.JPG
