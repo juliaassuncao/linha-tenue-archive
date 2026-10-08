@@ -5,12 +5,14 @@ import { CharacterSection } from './character-section';
 
 export const Intro = () => {
   return (
-    <main className={S.wrapper}>
-      <header className={S.header}>
-        <h1 className={S.title}>{IntroC.header.title}</h1>
-        <p className={S.subtitle}>{IntroC.header.subtitle}</p>
+    <main className={`${S.wrapper} lt-intro`}>
+      <header className={`${S.header} lt-intro__header`}>
+        <h1 className={`${S.title} lt-intro__title`}>{IntroC.header.title}</h1>
+        <p className={`${S.subtitle} lt-intro__subtitle`}>
+          {IntroC.header.subtitle}
+        </p>
       </header>
-      <div className={S.content}>
+      <div className={`${S.content} lt-intro__content`}>
         <Synopsis
           text={SynopsisC.text}
           media={[

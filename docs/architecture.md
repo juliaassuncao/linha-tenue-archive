@@ -58,8 +58,12 @@ src/
       props.ts
     updates/
   preview/
+  export/
+    ao3/
+      render-intro.tsx
   styles/
 scripts/
+  export-ao3-intro.mjs
 ```
 
 | Diretório | Responsabilidade |
@@ -81,6 +85,9 @@ scripts/
 | `src/preview/` | Interface exclusiva do ambiente local de desenvolvimento. |
 | `src/styles/` | Estilos destinados ao AO3 e estilos exclusivos do preview, separados entre si. |
 | `scripts/` | Exportadores, validadores e ferramentas do projeto. |
+| `src/export/ao3/render-intro.tsx` | Renderização estática da mesma INTRO usada pelo site, via `react-dom/server`. |
+| `scripts/export-ao3-intro.mjs` | Carregamento SSR pelo Vite, preparação do fragmento AO3, resolução externa de assets, compilação e validação da Work Skin e gravação em `dist/ao3`. |
+| `src/utils/resolve-asset-url.ts` | Resolução única dos caminhos internos para `/assets/...` nos componentes. |
 
 Os contratos compartilhados ficam em `src/constants/props.ts`, com exports explícitos: `CharacterProps`, `SocialAccountProps`, `ChatContentProps`, `ChatMessageProps`, `MediaAssetProps` e `CharacterContentProps`. `IntroBlockProps` pertence a `src/templates/intro/props.ts`. Props específicas de componente ou template permanecem junto de seu contexto. Não exportar um tipo genérico chamado apenas `Props`. Os arquivos de tipos/props contêm somente imports necessários e declarações de tipos, sem comentários ou JSDoc; explicações permanecem nos documentos do projeto. `src/types` não é catálogo global de domínio; poderá ser recriado para declarações realmente globais, como `global.d.ts`, quando houver necessidade.
 
@@ -92,7 +99,7 @@ Uma atualização futura segue preferencialmente `src/templates/updates/001/`, c
 
 `relativePath` é relativo a `public/assets/`, sem o prefixo `/assets/`. `source` continua relativo a `source/` e aponta à proveniência histórica. Os assets físicos não substituem essa referência.
 
-As quatro imagens originais da sinopse permanecem em assets separados, na ordem Lorena → contrato → fake kiss → Eduarda, exibidas em coluna única com links individuais. A decisão atual não reconstrói a montagem 2×2: o preview React do conteúdo segue fluxo normal, margens e dimensões simples, conforme as [restrições de CSS para AO3](ao3-rules.md), para permitir a futura tradução para Work Skin sem redesenhar o layout.
+As quatro imagens originais da sinopse permanecem em assets separados, na ordem Lorena → contrato → fake kiss → Eduarda. A apresentação aprovada usa `details`/`summary` em flex-wrap, com 50% da largura fechado e 100% aberto, expandindo a mesma imagem sem JavaScript. O site e a Work Skin mantêm essa composição, conforme as [restrições de CSS para AO3](ao3-rules.md).
 
 ## Convenções de código e componentes
 
@@ -142,9 +149,9 @@ src/styles/workskin.scss  → somente estilos do conteúdo publicado
 src/styles/preview.scss   → somente interface e ferramentas locais
 ```
 
-Esses nomes descrevem arquivos futuros. O SCSS da Work Skin deverá gerar CSS para o destino. A publicação recebe somente HTML estático, CSS da Work Skin e imagens hospedadas externamente quando necessárias. Os critérios de saída estão nas [regras para AO3](ao3-rules.md).
+`npm run export:ao3:intro` compila o SCSS da Work Skin e renderiza a INTRO por SSR do Vite, preservando o site com CSS Modules e publicando somente classes estáveis `lt-*`. A tradução da Work Skin é explícita e separada dos módulos. A publicação recebe somente HTML estático, CSS e imagens externas. Contêineres sem suporte no sanitizer são convertidos para `div` somente no fragmento exportado; o site conserva sua semântica. O fluxo e os limites de validação estão nas [regras para AO3](ao3-rules.md#spike-de-exportação-da-intro).
 
-Uma futura camada de resolução de assets deverá transformar identificadores ou caminhos internos em arquivos locais no preview e URLs externas públicas na exportação. Mudar a hospedagem não deve exigir reescrever os dados narrativos.
+`resolveAssetUrl` resolve caminhos internos para arquivos locais nos componentes. O exporter aplica `AO3_ASSET_BASE_URL` aos atributos de mídia do HTML estático, sem prop drilling ou acoplamento dos componentes à hospedagem. Mudar a hospedagem não exige reescrever os dados narrativos. A aceitação em um rascunho real do AO3 ainda depende de assets públicos e da validação na plataforma.
 
 ## MVP e evolução
 

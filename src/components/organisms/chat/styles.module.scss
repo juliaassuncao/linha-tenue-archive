@@ -43,6 +43,7 @@
   left: 50%;
   display: flex;
   width: 100%;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
   transform: translateX(-50%);
@@ -68,7 +69,7 @@
 }
 
 .headerAvatar + .headerAvatar {
-  margin-left: -20px;
+  margin-right: -20px;
 }
 
 .title {
@@ -80,11 +81,26 @@
   overflow-wrap: break-word;
 }
 
+.messagesArea {
+  position: relative;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  z-index: 0;
+}
+
 .messages {
+  position: relative;
+  z-index: 1;
   max-height: 32em;
   padding: 1.5em 0.4em 0.25em;
   overflow-y: auto;
-  background-position: top;
-  background-size: cover;
-  background-repeat: no-repeat;
 }

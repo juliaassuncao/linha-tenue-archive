@@ -1,22 +1,26 @@
+import { resolveAssetUrl } from '@/utils/resolve-asset-url';
 import { SynopsisPreviewC } from './constants';
 import type { SynopsisProps } from './props';
 import S from './styles.module.scss';
 
 export function Synopsis({ text, media }: SynopsisProps) {
   return (
-    <section>
-      <p className={S.text}>{text}</p>
-      <section className={S.test}>
-        <div className={S.mediaLayout}>
+    <section className="lt-synopsis">
+      <p className={`${S.text} lt-synopsis__text`}>{text}</p>
+      <section className={`${S.test} lt-synopsis__media`}>
+        <div className={`${S.mediaLayout} lt-synopsis__layout`}>
           {media.map((asset) => (
-            <details key={asset.id} className={S.mediaItem}>
-              <summary className={S.summary}>
+            <details
+              key={asset.id}
+              className={`${S.mediaItem} lt-synopsis__item`}
+            >
+              <summary className={`${S.summary} lt-synopsis__summary`}>
                 <img
-                  className={S.image}
-                  src={`/assets/${asset.relativePath}`}
+                  className={`${S.image} lt-synopsis__image`}
+                  src={resolveAssetUrl(asset.relativePath)}
                   alt={asset.alt}
                 />
-                <span className={S.closeIndicator}>
+                <span className={`${S.closeIndicator} lt-synopsis__close`}>
                   {SynopsisPreviewC.closeLabel}
                 </span>
               </summary>
@@ -32,7 +36,7 @@ export function Synopsis({ text, media }: SynopsisProps) {
             <div key={asset.id} className={S.flowItem}>
               <img
                 className={S.image}
-                src={`/assets/${asset.relativePath}`}
+                src={resolveAssetUrl(asset.relativePath)}
                 alt={asset.alt}
               />
             </div>

@@ -11,10 +11,10 @@ export const SocialProfileC = {
     clapperboard: '🎬',
   },
   icons: {
-    back: '/assets/ui/social-profile/arrow-circle-left.svg',
-    location: '/assets/ui/social-profile/local-marker.png',
-    verified: '/assets/ui/social-profile/verified.png',
-    private: '/assets/ui/social-profile/lock.png',
-    clapperboard: '/assets/ui/social-profile/claquete.png',
+    back: 'ui/social-profile/arrow-circle-left.svg',
+    location: 'ui/social-profile/local-marker.png',
+    verified: 'ui/social-profile/verified.png',
+    private: 'ui/social-profile/lock.png',
+    clapperboard: 'ui/social-profile/claquete.png',
   },
 };
