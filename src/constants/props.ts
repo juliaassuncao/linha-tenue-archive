@@ -21,6 +21,39 @@ export interface SocialAccountProps {
   source: string[];
 }
 
+export interface SocialIdentityProps {
+  id: string;
+  displayName: string;
+  username: string;
+  avatarMediaId: string;
+  isPrivate?: boolean;
+  verification?: 'blue' | 'gold';
+}
+
+export interface SocialPostMetricsProps {
+  views?: string;
+  retweets?: string;
+  quoteTweets?: string;
+  likes?: string;
+  replies?: string;
+}
+
+export interface SocialPostContentProps {
+  id: string;
+  authorId: string;
+  text: string;
+  timestamp?: string;
+  metrics?: SocialPostMetricsProps;
+  mediaIds?: string[];
+  source: string[];
+  replyingTo?: {
+    postId: string;
+    username: string;
+  };
+  replies?: SocialPostContentProps[];
+  quotedPostId?: string;
+}
+
 export interface ChatMessageProps {
   id: string;
   text: string;

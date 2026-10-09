@@ -542,3 +542,213 @@
     text-shadow: 0 1px 2px #000000;
   }
 }
+
+#workskin .lt-social-post {
+  &,
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  div,
+  span,
+  p,
+  figure {
+    margin: 0;
+    padding: 0;
+  }
+
+  & {
+    width: 100%;
+    max-width: 580px;
+    margin: 2em auto;
+    padding: 1em;
+    border: 1px solid #d8dee4;
+    border-radius: 16px;
+    background-color: #ffffff;
+    color: #0f1419;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .lt-social-post__header {
+    display: flex;
+    align-items: center;
+    margin: 0 0 1em;
+  }
+
+  .lt-social-post__avatar {
+    flex: 0 0 48px;
+    width: 48px;
+    margin-right: 0.75em;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  .lt-social-post__avatar-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+
+  .lt-social-post__identity {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  .lt-social-post__author {
+    margin: 0;
+    font-size: 1.1em;
+    line-height: 1.3;
+  }
+
+  .lt-social-post__badge {
+    display: inline-block;
+    width: 18px;
+    margin-left: 0.25em;
+    vertical-align: middle;
+  }
+
+  .lt-social-post__badge-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .lt-social-post__gold-badge {
+    display: inline-block;
+    margin-left: 0.4em;
+    color: #806000;
+    font-size: 0.7em;
+    vertical-align: middle;
+  }
+
+  .lt-social-post__username {
+    margin: 0.15em 0 0;
+    color: #536471;
+    font-size: 0.95em;
+  }
+
+  .lt-social-post__replying-to {
+    margin: 0 0 0.6em;
+    color: #536471;
+    font-size: 0.9em;
+    overflow-wrap: break-word;
+  }
+
+  .lt-social-post__reply-target {
+    color: #0969a8;
+  }
+
+  .lt-social-post__body {
+    margin: 0;
+    font-size: 1.05em;
+    line-height: 1.5;
+    text-align: left;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+
+  .lt-social-post__media {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.75em -0.25em 0;
+  }
+
+  .lt-social-post__media-item {
+    flex: 1 1 220px;
+    width: 50%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.25em;
+  }
+
+  .lt-social-post__media-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .lt-social-post__timestamp {
+    margin: 0.9em 0 0;
+    color: #536471;
+    font-size: 0.85em;
+    overflow-wrap: break-word;
+  }
+
+  .lt-social-post__metrics {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.8em 0 0;
+    padding-top: 0.7em;
+    border-top: 1px solid #e3e8ec;
+    color: #536471;
+    font-size: 0.85em;
+  }
+
+  .lt-social-post__metric {
+    margin: 0 1em 0.3em 0;
+  }
+
+  .lt-social-post__metric-value {
+    color: #0f1419;
+  }
+
+  .lt-social-post__replies {
+    margin: 1em 0 0;
+  }
+
+  &.lt-social-post__reply {
+    max-width: 100%;
+    margin: 0;
+    padding: 1em 0;
+    border: 0;
+    border-top: 1px solid #e3e8ec;
+    border-radius: 0;
+
+    .lt-social-post__header {
+      margin-bottom: 0.6em;
+    }
+
+    .lt-social-post__body {
+      font-size: 1em;
+    }
+  }
+}
+
+#workskin .lt-update {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 46em;
+  margin: 0 auto;
+  padding: 2.5em 1em 4em;
+  font-family: system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #262626;
+
+  .lt-update__title {
+    margin: 0 0 2em;
+    padding: 0;
+    border: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5em;
+    line-height: 1.3;
+    text-align: center;
+    font-weight: bold;
+    color: inherit;
+  }
+
+  .lt-update__blocks {
+    display: block;
+  }
+}
