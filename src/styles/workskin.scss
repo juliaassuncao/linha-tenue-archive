@@ -28,7 +28,7 @@
     width: 100%;
     max-width: 46em;
     margin: 0 auto;
-    padding-block: 2.5em 4em;
+    padding-top: 2.5em;
     font-family: system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.5;
@@ -36,7 +36,7 @@
   }
 
   .lt-intro__header {
-    margin: 0 0 2.5em;
+    margin: 0 1em 2.5em;
     text-align: center;
   }
 
@@ -60,6 +60,11 @@
 
   .lt-intro__content {
     display: block;
+  }
+
+  .lt-synopsis {
+    margin-right: 1em;
+    margin-left: 1em;
   }
 
   .lt-synopsis__text {
@@ -115,11 +120,10 @@
 
   .lt-character-section {
     width: 100%;
-    margin-top: 4em;
   }
 
   .lt-character-section__title {
-    margin: 0 0 1.5em;
+    margin: 2em 0 1.5em;
     padding: 0;
     border: 0;
     text-align: center;
@@ -131,15 +135,13 @@
   }
 
   .lt-character-section + .lt-character-section {
-    margin-top: 5em;
-    padding-top: 3em;
     border-top: 1px solid #dedede;
   }
 
   .lt-character-section__label {
     width: 100%;
     max-width: 540px;
-    margin: 3em auto 0.75em;
+    margin: 2em auto 0.75em;
     font-size: 1em;
     font-weight: 600;
     color: #4b4b4b;
@@ -174,7 +176,7 @@
   }
 
   .lt-social-profile {
-    width: 100%;
+    width: 95%;
     max-width: 540px;
     margin: 3em auto;
     overflow: hidden;
@@ -352,7 +354,7 @@
   }
 
   .lt-chat {
-    width: 92%;
+    width: 85%;
     max-width: 370px;
     margin: 3em auto;
     overflow: hidden;
@@ -1101,7 +1103,7 @@
   color: #262626;
 
   .lt-chat {
-    width: calc(92% - 1.84em);
+    width: 85%;
   }
 
   .lt-update__title {

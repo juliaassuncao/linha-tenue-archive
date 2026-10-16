@@ -16,10 +16,6 @@
 
 .blocks {
   display: block;
-
-  :global(.lt-chat) {
-    width: calc(92% - 1.84em);
-  }
 }
 
 .narrative {

@@ -5,7 +5,7 @@ import S from './styles.module.scss';
 
 export function Synopsis({ text, media }: SynopsisProps) {
   return (
-    <section className="lt-synopsis">
+    <section className={`${S.synopsis} lt-synopsis`}>
       <p className={`${S.text} lt-synopsis__text`}>{text}</p>
       <section className={`${S.test} lt-synopsis__media`}>
         <div className={`${S.mediaLayout} lt-synopsis__layout`}>

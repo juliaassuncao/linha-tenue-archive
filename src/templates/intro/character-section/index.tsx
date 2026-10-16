@@ -1,4 +1,3 @@
-import { resolveAssetUrl } from '@/utils/resolve-asset-url';
 import { SocialProfile } from '@/components/organisms/social-profile';
 import type { CharacterSectionProps } from './props';
 import S from './styles.module.scss';
@@ -15,7 +14,6 @@ export const CharacterSection = ({
   privateBanner,
   squad,
   media,
-  wallpaper,
 }: CharacterSectionProps) => {
   return (
     <section className={`${S.section} lt-character-section`}>
@@ -42,18 +40,6 @@ export const CharacterSection = ({
         {labels.squad}
       </p>
       <Chat content={squad} media={media} />
-      <p
-        className={`${S.contentLabel} ${S.wallpaperLabel} lt-character-section__label lt-character-section__label--wallpaper`}
-      >
-        {labels.wallpaper}
-      </p>
-      <figure className={`${S.wallpaper} lt-wallpaper`}>
-        <img
-          className="lt-wallpaper__image"
-          src={resolveAssetUrl(wallpaper.relativePath)}
-          alt={wallpaper.alt}
-        />
-      </figure>
     </section>
   );
 };
