@@ -797,6 +797,10 @@
     text-align: left;
     white-space: pre-wrap;
     overflow-wrap: break-word;
+
+    span {
+      color: #1d9bf0;
+    }
   }
 
   &.lt-social-post__quote {
