@@ -103,7 +103,7 @@ export const Update001C: Update001ContentProps = {
           Eduarda com um microfone em mãos.
           <br />
           <br />
-          — Eduarda, o que você acha da Lorena Ferette? - perguntou, com uma voz
+          — Eduarda, o que você acha da Lorena Ferette? — perguntou, com uma voz
           clara acima do burburinho.
           <br />
           <br />
@@ -113,7 +113,7 @@ export const Update001C: Update001ContentProps = {
           <br />
           — Ah… Eu não costumo acompanhar muitos trabalhos de modelos, então não
           a conheço pessoalmente. Mas… Pelo o que eu vejo, ela parece ótima no
-          que faz - sua voz manteve o tom cordial, mas natural e sem exageros.
+          que faz — sua voz manteve o tom cordial, mas natural e sem exageros.
           <br />
           <br />
           A repórter sorriu e agradeceu, observando Eduarda retomar seu caminho.
@@ -129,7 +129,7 @@ export const Update001C: Update001ContentProps = {
           <br />
           <br />
           — Já ouvi falar sobre ela, sim. Ainda não tive a oportunidade de ver os
-          trabalhos dela, mas imagino que seja uma ótima atriz - fez uma breve
+          trabalhos dela, mas imagino que seja uma ótima atriz — fez uma breve
           pausa — É impressionante ver alguém começar recentemente e já causar
           tanto impacto.
           <br />
@@ -152,7 +152,7 @@ export const Update001C: Update001ContentProps = {
           pode acelerar carreiras e abrir portas que muitos só sonham… Mas também
           é fácil confundir crescimento rápido com talento consolidado. Algumas
           pessoas parecem prontas para os holofotes sem estarem realmente
-          preparadas para eles - ela sorriu levemente, as covinhas se fazendo
+          preparadas para eles — ela sorriu levemente, as covinhas se fazendo
           presentes. Seu tom de voz se assemelhava à um conselho — Aprender na
           prática é essencial, e a experiência só vem com o tempo.
           <br />
@@ -261,7 +261,7 @@ export const Update001C: Update001ContentProps = {
         <>
           Meses se passaram desde a noite no <em>Gala Lumière</em>. Mas, em vez
           de esfriar, a implicância entre Lorena e Eduarda só cresceu. Não houve
-          novos confrontos diretos, apenas silêncios - e quem cala, consente -,
+          novos confrontos diretos, apenas silêncios — e quem cala, consente —,
           indiretas ocasionais nas redes sociais e respostas curtas sempre que
           algum repórter ousava citar o nome da outra.
           <br />
