@@ -44,6 +44,14 @@
   border-radius: 50%;
 }
 
+.avatarPlaceholder {
+  display: block;
+  flex: 0 0 auto;
+  width: 2.25em;
+  height: 1px;
+  margin-right: 0.5em;
+}
+
 .bubble {
   position: relative;
   width: fit-content;

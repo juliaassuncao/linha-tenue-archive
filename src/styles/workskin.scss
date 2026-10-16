@@ -545,6 +545,14 @@
     border-radius: 50%;
   }
 
+  .lt-chat-message__avatar-placeholder {
+    display: block;
+    flex: 0 0 auto;
+    width: 2.25em;
+    height: 1px;
+    margin-right: 0.5em;
+  }
+
   .lt-chat-message__bubble {
     position: relative;
     width: fit-content;
@@ -606,6 +614,7 @@
     align-items: center;
     padding: 0.45em 0.55em;
     border-top: 1px solid #d8d0dc;
+    border-radius: 0 0 17px 17px;
     background-color: #f8f8f8;
   }
 
@@ -620,10 +629,6 @@
     display: block;
     width: 24px;
     height: auto;
-  }
-
-  .lt-chat__composer-icon + .lt-chat__composer-icon {
-    margin-left: 0.45em;
   }
 
   .lt-chat__composer-field {
@@ -1112,6 +1117,10 @@
   font-size: 16px;
   line-height: 1.5;
   color: #262626;
+
+  .lt-chat {
+    width: calc(92% - 1.84em);
+  }
 
   .lt-update__title {
     margin: 0 0 2em;

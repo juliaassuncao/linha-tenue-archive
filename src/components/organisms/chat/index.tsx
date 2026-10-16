@@ -97,6 +97,7 @@ export const Chat = ({ content, media }: ChatProps) => {
                   !continuesPreviousSender
                 }
                 showTail={showTail}
+                reserveAvatarSpace={content.kind === 'group'}
               />
             );
           })}
@@ -106,11 +107,6 @@ export const Chat = ({ content, media }: ChatProps) => {
             <img
               className={`${S.composerIcon} lt-chat__composer-icon`}
               src={resolveAssetUrl(ChatC.icons.camera)}
-              alt=""
-            />
-            <img
-              className={`${S.composerIcon} lt-chat__composer-icon`}
-              src={resolveAssetUrl(ChatC.icons.apps)}
               alt=""
             />
           </div>

@@ -15,4 +15,5 @@ export interface ChatMessageProps {
   media?: MediaAssetProps;
   showSenderName?: boolean;
   showTail?: boolean;
+  reserveAvatarSpace?: boolean;
 }

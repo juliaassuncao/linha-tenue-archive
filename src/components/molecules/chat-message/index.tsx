@@ -8,6 +8,7 @@ export const ChatMessage = ({
   media,
   showSenderName = false,
   showTail = true,
+  reserveAvatarSpace = false,
 }: ChatMessageProps) => {
   return (
     <div
@@ -18,6 +19,12 @@ export const ChatMessage = ({
           className={`${S.avatar} lt-chat-message__avatar`}
           src={resolveAssetUrl(avatar.relativePath)}
           alt={avatar.alt}
+        />
+      )}
+      {!avatar && reserveAvatarSpace && message.direction === 'incoming' && (
+        <span
+          className={`${S.avatarPlaceholder} lt-chat-message__avatar-placeholder`}
+          aria-hidden="true"
         />
       )}
       <div className={`${S.content} lt-chat-message__content`}>

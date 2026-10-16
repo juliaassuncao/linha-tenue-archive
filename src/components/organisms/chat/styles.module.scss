@@ -151,6 +151,7 @@
   align-items: center;
   padding: 0.45em 0.55em;
   border-top: 1px solid #d8d0dc;
+  border-radius: 0 0 17px 17px;
   background-color: #f8f8f8;
 }
 
@@ -165,10 +166,6 @@
   display: block;
   width: 24px;
   height: auto;
-}
-
-.composerIcon + .composerIcon {
-  margin-left: 0.45em;
 }
 
 .composerField {
