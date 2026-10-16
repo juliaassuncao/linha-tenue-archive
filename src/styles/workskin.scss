@@ -351,7 +351,7 @@
   }
 
   .lt-intro__header {
-    margin: 0 1em 2.5em;
+    margin: 0 0 2.5em;
     text-align: center;
   }
 
@@ -375,11 +375,6 @@
 
   .lt-intro__content {
     display: block;
-  }
-
-  .lt-synopsis {
-    margin-right: 1em;
-    margin-left: 1em;
   }
 
   .lt-synopsis__text {
@@ -459,7 +454,7 @@
     margin: 2em auto 0.75em;
     font-size: 1em;
     font-weight: 600;
-    color: #4b4b4b;
+    color: #262626;
     text-align: center;
   }
 
@@ -491,7 +486,7 @@
   }
 
   .lt-social-profile {
-    width: 95%;
+    width: 100%;
     max-width: 540px;
     margin: 3em auto;
     overflow: hidden;
@@ -670,6 +665,9 @@
 
   @include chatStyles;
 
+  .lt-chat {
+    width: 95%;
+  }
 }
 
 #workskin .lt-social-post {
@@ -689,10 +687,11 @@
   }
 
   & {
-    width: 100%;
-    max-width: 580px;
-    margin: 2em auto;
-    padding: 1em;
+    width: auto;
+    max-width: none;
+    margin: 3em auto;
+    padding: 0.6em 0.5em 0;
+    overflow: hidden;
     border: 1px solid #d8dee4;
     border-radius: 16px;
     background-color: #ffffff;
@@ -806,7 +805,6 @@
     margin: 0.75em 0 0;
     padding: 0.65em;
     border-color: #cfd9de;
-    border-radius: 14px;
     font-size: 1em;
 
     .lt-social-post__header {
@@ -880,6 +878,7 @@
       width: 50%;
       min-width: 0;
       height: 0;
+      margin-right: 0.2em;
       padding: 0 0 60%;
       overflow: hidden;
       border-radius: 0;
@@ -955,7 +954,7 @@
   }
 
   .lt-social-post__metric {
-    margin: 0 1em 0.3em 0;
+    margin: 0 1em 0.7em 0;
   }
 
   .lt-social-post__metric-value {
@@ -1012,11 +1011,11 @@
 
   .lt-social-post__replies {
     margin-top: 0;
-    margin-right: -0.6em;
+    margin-right: -0.2em;
     margin-bottom: 0;
-    margin-left: -0.6em;
+    margin-left: -0.2em;
     overflow: hidden;
-    border-radius: 0 0 15px 15px;
+    border-radius: 0 0 16px 16px;
   }
 
   &.lt-social-post__reply {
@@ -1024,7 +1023,7 @@
     width: auto;
     max-width: none;
     margin: 0;
-    padding: 0.75em 0.6em;
+    padding: 0.5em 0.2em;
     border: 0;
     border-top: 1px solid #e3e8ec;
     border-radius: 0;
@@ -1071,7 +1070,7 @@
 
     .lt-social-post__post-actions {
       width: 100%;
-      margin-top: 0.9em;
+      margin-top: 0;
       margin-right: 0;
       margin-left: 0;
       padding-top: 0.75em;
@@ -1098,22 +1097,25 @@
       content: '';
       position: absolute;
       top: 0;
-      left: 37px;
-      width: 3px;
-      height: 0.75em;
+      left: 30px;
+      width: 2px;
+      height: 0.375em;
       background-color: #e3e8ec;
     }
   }
 
-  &.lt-social-post__reply--connected-to-next::after {
-    content: '';
-    position: absolute;
-    top: 69px;
-    bottom: 0;
-    left: 37px;
-    width: 3px;
-    background-color: #e3e8ec;
+  &.lt-social-post__reply--connected-to-next {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 66px;
+      bottom: 0;
+      left: 30px;
+      width: 2px;
+      background-color: #e3e8ec;
+    }
   }
+
 }
 
 #workskin .lt-update {
@@ -1121,13 +1123,25 @@
   width: 100%;
   max-width: 46em;
   margin: 0 auto;
-  padding: 2.5em 1em 4em;
+  padding: 2.5em 0 4em;
   font-family: system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #262626;
 
   @include chatStyles;
+
+  .lt-chat {
+    width: 92%;
+  }
+
+  .lt-chat__messages {
+    max-height: 34em;
+  }
+
+  .lt-chat__messages-area--with-background {
+    padding-bottom: 180%;
+  }
 
   .lt-update__title {
     margin: 0 0 2em;
@@ -1147,7 +1161,6 @@
 
   .lt-update__narrative {
     margin: 3em auto;
-    padding: 0 1em;
     font-family: Verdana, Geneva, sans-serif;
   }
 
@@ -1159,7 +1172,7 @@
   .lt-update__narrative-text {
     margin: 0;
     font-size: 1.05em;
-    line-height: 1.8;
+    line-height: 1.35;
     text-align: justify;
   }
 
@@ -1167,7 +1180,6 @@
     width: 80%;
     max-width: 28em;
     margin: 4em auto;
-    padding: 1.25em 1em;
     border-top: 1px solid #d8dee4;
     border-bottom: 1px solid #d8dee4;
     color: #0f1419;
