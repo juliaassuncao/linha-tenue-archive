@@ -343,7 +343,7 @@
     width: 100%;
     max-width: 46em;
     margin: 0 auto;
-    padding-top: 2.5em;
+    padding-block: 2.5em 4em;
     font-family: system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.5;
@@ -744,7 +744,7 @@
     padding: 0.5em;
     overflow: hidden;
     border: 1px solid #d8dee4;
-    border-radius: 16px;
+    border-radius: 0;
     background-color: #ffffff;
     color: #0f1419;
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -859,6 +859,7 @@
     margin: 0.75em 0 0;
     padding: 0.65em;
     border-color: #cfd9de;
+    border-radius: 14px;
     font-size: 1em;
 
     .lt-social-post__header {
@@ -1151,7 +1152,7 @@
       content: '';
       position: absolute;
       top: 0;
-      left: 31px;
+      left: 36px;
       width: 2px;
       height: 6px;
       transform: translateX(-50%);
@@ -1165,7 +1166,7 @@
       position: absolute;
       top: 66px;
       bottom: 0;
-      left: 31px;
+      left: 36px;
       width: 2px;
       transform: translateX(-50%);
       background-color: #e3e8ec;
@@ -1179,8 +1180,8 @@
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
-  padding: 3em 1em 4em;
-  background-color: #f7f6f3;
+  padding: 3em 0 4em;
+  background-color: #ffffff;
   font-family: system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.5;
@@ -1246,8 +1247,8 @@
 
   .lt-update__narrative {
     box-sizing: border-box;
-    width: 92%;
-    max-width: 38em;
+    width: 100%;
+    max-width: none;
     margin: 0 auto;
     padding: 1.5em 1.4em;
     border-left: 3px solid #d8d6d1;
