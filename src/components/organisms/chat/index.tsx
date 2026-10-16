@@ -83,19 +83,20 @@ export const Chat = ({ content, media }: ChatProps) => {
               nextMessage?.direction === message.direction &&
               nextMessage.senderName === message.senderName &&
               nextMessage.avatarMediaId === message.avatarMediaId;
+            const showTail = !continuesSameSender;
 
             return (
               <ChatMessage
                 key={message.id}
                 message={message}
-                avatar={avatar}
+                avatar={showTail ? avatar : undefined}
                 media={messageMedia}
                 showSenderName={
                   content.kind === 'group' &&
                   message.direction === 'incoming' &&
                   !continuesPreviousSender
                 }
-                showTail={!continuesSameSender}
+                showTail={showTail}
               />
             );
           })}
