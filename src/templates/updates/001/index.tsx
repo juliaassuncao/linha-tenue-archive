@@ -10,7 +10,6 @@ export const Update001 = () => {
     if (block.type === 'social-post') {
       return (
         <SocialPost
-          key={block.id}
           post={Update001C.posts[block.postId]}
           posts={Update001C.posts}
           identities={SocialIdentitiesC}
@@ -21,7 +20,7 @@ export const Update001 = () => {
 
     if (block.type === 'narrative') {
       return (
-        <article key={block.id} className={`${S.narrative} lt-update__narrative`}>
+        <article className={`${S.narrative} lt-update__narrative`}>
           <p className={`${S.narrativeLabel} lt-update__narrative-label`}>
             <strong>
               <em>{block.label}</em>
@@ -37,7 +36,6 @@ export const Update001 = () => {
     if (block.type === 'chat') {
       return (
         <Chat
-          key={block.id}
           content={Update001C.chats[block.chatId]}
           media={Update001C.media}
         />
@@ -45,19 +43,31 @@ export const Update001 = () => {
     }
 
     return (
-      <div key={block.id} className={`${S.timeJump} lt-update__time-jump`}>
-        {block.text}
+      <div className={`${S.timeJump} lt-update__time-jump`}>
+        <div className={`${S.timeJumpLabel} lt-update__time-jump-label`}>
+          {block.text}
+        </div>
       </div>
     );
   };
 
   return (
     <section className={`${S.update} lt-update`}>
-      <h2 className={`${S.title} lt-update__title`}>
-        {Update001C.header.title}
-      </h2>
+      <header className={`${S.header} lt-update__header`}>
+        <h2 className={`${S.title} lt-update__title`}>
+          {Update001C.header.title}
+        </h2>
+        <span
+          className={`${S.divider} lt-update__divider`}
+          aria-hidden="true"
+        />
+      </header>
       <div className={`${S.blocks} lt-update__blocks`}>
-        {Update001C.blocks.map(renderBlock)}
+        {Update001C.blocks.map((block) => (
+          <div key={block.id} className={`${S.block} lt-update__block`}>
+            {renderBlock(block)}
+          </div>
+        ))}
       </div>
     </section>
   );
