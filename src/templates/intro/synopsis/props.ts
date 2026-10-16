@@ -1,6 +1,7 @@
+import type { ReactNode } from 'react';
 import type { MediaAssetProps } from '@/constants/props';
 
 export interface SynopsisProps {
-  text: string;
+  text: ReactNode;
   media: MediaAssetProps[];
 }

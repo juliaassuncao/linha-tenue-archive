@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 46em;
   margin: 0 auto;
-  padding: 2.5em 1em 4em;
+  padding: 2.5em 0 4em;
 }
 
 .title {
@@ -16,4 +16,45 @@
 
 .blocks {
   display: block;
+}
+
+.narrative {
+  margin: 3em auto;
+  padding: 0 1em;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+.narrativeLabel {
+  margin: 0 0 1.5em;
+  text-align: center;
+}
+
+.narrativeText {
+  margin: 0;
+  font-size: 1.05em;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.timeJump {
+  width: 80%;
+  max-width: 28em;
+  margin: 4em auto;
+  padding: 1.25em 1em;
+  border-top: 1px solid #d8dee4;
+  border-bottom: 1px solid #d8dee4;
+  box-sizing: border-box;
+  color: #0f1419;
+  font-family: Verdana, Geneva, sans-serif;
+  text-align: center;
+
+  strong,
+  span {
+    display: block;
+  }
+
+  strong {
+    font-size: 1.05em;
+    letter-spacing: 0.04em;
+  }
 }

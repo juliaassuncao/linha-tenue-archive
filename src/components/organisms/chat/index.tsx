@@ -17,7 +17,11 @@ export const Chat = ({ content, media }: ChatProps) => {
     .filter((asset): asset is MediaAssetProps => Boolean(asset));
 
   return (
-    <article className={`${S.chat} lt-chat`} aria-label={content.title}>
+    <article
+      id={content.id}
+      className={`${S.chat} lt-chat`}
+      aria-label={content.title}
+    >
       <header className={`${S.header} lt-chat__header`}>
         <img
           className="lt-chat__icon"
@@ -47,7 +51,9 @@ export const Chat = ({ content, media }: ChatProps) => {
           alt=""
         />
       </header>
-      <div className={`${S.messagesArea} lt-chat__messages-area`}>
+      <div
+        className={`${S.messagesArea} ${background ? S.withBackground : ''} lt-chat__messages-area${background ? ' lt-chat__messages-area--with-background' : ''}`}
+      >
         {background && (
           <img
             className={`${S.background} lt-chat__background`}
@@ -60,22 +66,65 @@ export const Chat = ({ content, media }: ChatProps) => {
           role="region"
           aria-label={content.title}
         >
-          {content.messages.map((message) => {
+          {content.messages.map((message, index) => {
             const avatar = message.avatarMediaId
               ? mediaById[message.avatarMediaId]
               : undefined;
+            const messageMedia = message.mediaId
+              ? mediaById[message.mediaId]
+              : undefined;
+            const previousMessage = content.messages[index - 1];
+            const nextMessage = content.messages[index + 1];
+            const continuesPreviousSender =
+              previousMessage?.direction === message.direction &&
+              previousMessage.senderName === message.senderName &&
+              previousMessage.avatarMediaId === message.avatarMediaId;
+            const continuesSameSender =
+              nextMessage?.direction === message.direction &&
+              nextMessage.senderName === message.senderName &&
+              nextMessage.avatarMediaId === message.avatarMediaId;
 
             return (
               <ChatMessage
                 key={message.id}
                 message={message}
                 avatar={avatar}
+                media={messageMedia}
                 showSenderName={
-                  content.kind === 'group' && message.direction === 'incoming'
+                  content.kind === 'group' &&
+                  message.direction === 'incoming' &&
+                  !continuesPreviousSender
                 }
+                showTail={!continuesSameSender}
               />
             );
           })}
+        </div>
+        <div className={`${S.composer} lt-chat__composer`} aria-hidden="true">
+          <div className={`${S.composerActions} lt-chat__composer-actions`}>
+            <img
+              className={`${S.composerIcon} lt-chat__composer-icon`}
+              src={resolveAssetUrl(ChatC.icons.camera)}
+              alt=""
+            />
+            <img
+              className={`${S.composerIcon} lt-chat__composer-icon`}
+              src={resolveAssetUrl(ChatC.icons.apps)}
+              alt=""
+            />
+          </div>
+          <div className={`${S.composerField} lt-chat__composer-field`}>
+            <p
+              className={`${S.composerPlaceholder} lt-chat__composer-placeholder`}
+            >
+              {ChatC.labels.messagePlaceholder}
+            </p>
+            <img
+              className={`${S.sendIcon} lt-chat__send-icon`}
+              src={resolveAssetUrl(ChatC.icons.send)}
+              alt=""
+            />
+          </div>
         </div>
       </div>
     </article>

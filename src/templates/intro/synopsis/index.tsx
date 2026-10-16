@@ -28,22 +28,6 @@ export function Synopsis({ text, media }: SynopsisProps) {
           ))}
         </div>
       </section>
-      {/*
-      <section className={S.test}>
-        <h3 className={S.testTitle}>{SynopsisPreviewC.flowTestTitle}</h3>
-        <div className={S.mediaLayout}>
-          {media.map((asset) => (
-            <div key={asset.id} className={S.flowItem}>
-              <img
-                className={S.image}
-                src={resolveAssetUrl(asset.relativePath)}
-                alt={asset.alt}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-      */}
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { CharacterSectionsC, IntroC, SynopsisC } from './constants';
+import { CharacterSectionsC, IntroC, SynopsisC } from './constants.tsx';
 import { Synopsis } from './synopsis';
 import S from './styles.module.scss';
 import { CharacterSection } from './character-section';

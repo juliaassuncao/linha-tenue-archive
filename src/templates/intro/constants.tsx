@@ -1,11 +1,18 @@
 import { LorenaC } from '@/constants/characters/lorena/constants';
 import { EduardaC } from '@/constants/characters/eduarda/constants';
-import type { CharacterContentProps, MediaAssetProps } from '@/constants/props';
+import type { CharacterContentProps } from '@/constants/characters/props';
+import type { MediaAssetProps } from '@/constants/props';
 import type { IntroBlockProps } from './props';
 
 export const SynopsisC = {
   title: 'linha tênue | au loquinha',
-  text: 'Uma atriz e uma modelo que não se suportam, Eduarda e Lorena assinam um contrato de namoro falso para preservar a imagem de ambas. Só esquecem que o ódio e o amor andam lado a lado.',
+  text: (
+    <>
+      Uma atriz e uma modelo que não se suportam, Eduarda e Lorena assinam um
+      contrato de namoro falso para preservar a imagem de ambas. Só esquecem que o
+      ódio e o amor andam lado a lado.
+    </>
+  ),
   media: {
     lorena: {
       id: 'synopsis-lorena',

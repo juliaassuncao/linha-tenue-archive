@@ -1,6 +1,6 @@
 import { LorenaC } from '@/constants/characters/lorena/constants';
 import { EduardaC } from '@/constants/characters/eduarda/constants';
-import type { SocialIdentityProps } from '@/constants/props';
+import type { SocialIdentityProps } from '@/components/organisms/social-post/props';
 
 export const SocialIdentitiesC = {
   [LorenaC.accounts.public.id]: {
@@ -38,6 +38,13 @@ export const SocialIdentitiesC = {
     avatarMediaId: 'the-news-avatar',
     verification: 'blue',
   },
+  'saiu-fofoca': {
+    id: 'saiu-fofoca',
+    displayName: 'SAIU FOFOCA',
+    username: '@saiufofoca',
+    avatarMediaId: 'saiu-fofoca-avatar',
+    verification: 'blue',
+  },
   bebel: {
     id: 'bebel',
     displayName: 'bebel',
@@ -55,6 +62,18 @@ export const SocialIdentitiesC = {
     displayName: 'lottie',
     username: '@jbuckleyoc',
     avatarMediaId: 'lottie-avatar',
+  },
+  'duda-fan': {
+    id: 'duda-fan',
+    displayName: 'duda ⚢',
+    username: '@rosem4rys',
+    avatarMediaId: 'duda-fan-avatar',
+  },
+  majhu: {
+    id: 'majhu',
+    displayName: 'majhu',
+    username: '@mjsecret_',
+    avatarMediaId: 'majhu-avatar',
   },
   'juridico-lorena-ferette': {
     id: 'juridico-lorena-ferette',
@@ -81,6 +100,48 @@ export const SocialIdentitiesC = {
     displayName: 'gerlu',
     username: '@gerlucando',
     avatarMediaId: 'gerlu-social-avatar',
+    isPrivate: true,
+  },
+  'maggye-private': {
+    id: 'maggye-private',
+    displayName: 'maggye',
+    username: '@magspvd',
+    avatarMediaId: 'maggye-social-avatar',
+    isPrivate: true,
+  },
+  'portal-netflix': {
+    id: 'portal-netflix',
+    displayName: 'Portal Netflix',
+    username: '@portalnetflix',
+    avatarMediaId: 'portal-netflix-avatar',
+    verification: 'blue',
+  },
+  'isabela-public': {
+    id: 'isabela-public',
+    displayName: 'Isabela Alencar',
+    username: '@isalencar',
+    avatarMediaId: 'isabela-public-avatar',
+    verification: 'blue',
+  },
+  'vogue-brasil': {
+    id: 'vogue-brasil',
+    displayName: 'Vogue Brasil',
+    username: '@voguebrasil',
+    avatarMediaId: 'vogue-brasil-avatar',
+    verification: 'gold',
+  },
+  'vivi-private': {
+    id: 'vivi-private',
+    displayName: 'vivi',
+    username: '@vivisrant',
+    avatarMediaId: 'vivi-social-avatar',
+    isPrivate: true,
+  },
+  'isa-private': {
+    id: 'isa-private',
+    displayName: 'isa',
+    username: '@isabelinda',
+    avatarMediaId: 'isa-social-avatar',
     isPrivate: true,
   },
 } satisfies Record<string, SocialIdentityProps>;

@@ -1,4 +1,4 @@
-import type { CharacterContentProps } from '@/constants/props';
+import type { CharacterContentProps } from '@/constants/characters/props';
 
 export const LorenaC = {
   character: {

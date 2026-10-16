@@ -1,8 +1,6 @@
-import type {
-  ChatContentProps,
-  MediaAssetProps,
-  SocialAccountProps,
-} from '@/constants/props';
+import type { ChatContentProps } from '@/components/organisms/chat/props';
+import type { MediaAssetProps } from '@/constants/props';
+import type { SocialAccountProps } from '@/components/organisms/social-profile/props';
 
 export interface CharacterSectionProps {
   title: string;

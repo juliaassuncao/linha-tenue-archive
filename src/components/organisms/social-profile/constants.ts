@@ -13,8 +13,8 @@ export const SocialProfileC = {
   icons: {
     back: 'ui/social-profile/arrow-circle-left.svg',
     location: 'ui/social-profile/local-marker.png',
-    verified: 'ui/social-profile/verified.png',
-    private: 'ui/social-profile/lock.png',
+    verified: 'ui/social-profile/verified.svg',
+    private: 'ui/social-profile/lock.svg',
     clapperboard: 'ui/social-profile/claquete.png',
   },
 };

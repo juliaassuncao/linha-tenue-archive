@@ -1,9 +1,11 @@
+import type { ReactNode } from 'react';
+
 export type IntroBlockProps =
   | {
       id: string;
       type: 'synopsis';
       title: string;
-      text: string;
+      text: ReactNode;
       mediaIds: string[];
       source: string[];
     }
