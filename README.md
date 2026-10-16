@@ -1,5 +1,32 @@
 # React + TypeScript + Vite
 
+## Linha Tênue — identidade e nota editorial
+
+Os oito assets de branding fornecidos ficam em `public/branding/`, servidos em
+`/branding/`. `og-image.png` é a imagem de compartilhamento do site. Favicon,
+Open Graph e Twitter/X Card são configurados em `index.html` e não integram o AO3.
+Ainda não há URL estável de produção nem `VITE_SITE_URL`: a imagem usa um caminho
+local à origem. Ao definir o domínio definitivo, atualizar `og:image` e
+`twitter:image` para URLs absolutas e adicionar canonical.
+
+A Intro compartilha a nota editorial entre site e AO3, com textos centralizados
+em `src/templates/intro/constants.tsx` e apresentação em `archive-info/`.
+`showTestNotice` é `false` no site. A CLI AO3 ativa o aviso temporário por padrão,
+tanto na Intro de QA quanto no capítulo 001 (Intro + Update001).
+Para exportar sem o aviso na futura conta da Leth, use `--production`:
+
+```sh
+npm run export:ao3:intro -- --production
+npm run export:ao3 -- --chapter 001 --production
+```
+
+No PowerShell, use `npm.cmd` no lugar de `npm` para preservar os argumentos
+após `--` ao executar com o wrapper `npm.ps1` deste ambiente.
+
+O fluxo mantém `AO3_ASSET_BASE_URL` obrigatório para capítulos. Configure a base
+HTTPS pública dos assets antes de executar `npm run export:ao3` ou exportar 001.
+Execute a exportação depois de `npm run build`, que recria `dist`.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

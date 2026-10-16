@@ -2,15 +2,62 @@ import { LorenaC } from '@/constants/characters/lorena/constants';
 import { EduardaC } from '@/constants/characters/eduarda/constants';
 import type { CharacterContentProps } from '@/constants/characters/props';
 import type { MediaAssetProps } from '@/constants/props';
-import type { IntroBlockProps } from './props';
+import type { ArchiveInfoItemProps, IntroBlockProps } from './props';
+
+export const ArchiveInfoC = [
+  {
+    id: 'credits',
+    label: 'Créditos',
+    text: <>Linha Tênue é uma AU escrita por Leth Medveguillen —</>,
+    link: {
+      label: '@medveguillen',
+      href: 'https://x.com/medveguillen',
+    },
+  },
+  {
+    id: 'about',
+    label: 'Sobre esta versão',
+    text: (
+      <>
+        Esta adaptação foi pensada para leitura em telas digitais, versões baixadas para Kindle ou outros e-readers podem não preservar a formatação original.
+      </>
+    ),
+  },
+  {
+    id: 'test-notice',
+    label: 'Teste da adaptação',
+    text: (
+      <>
+        Esta primeira atualização está publicada temporariamente na minha conta
+        para testar responsividade e leitura em diferentes dispositivos. Se algo
+        quebrar ou ficar estranho, o feedback é muito bem-vindo. Quando a Leth
+        quiser, a ideia é migrar a adaptação para a conta dela.
+      </>
+    ),
+    testOnly: true,
+  },
+  {
+    id: 'for-leth',
+    label: 'Pra Leth ♡',
+    text: (
+      <>
+        <em>Linha Tênue</em> foi a primeira AU que eu li e acabou sendo minha
+        porta de entrada para o fandom e para esse universo de fanfics que eu
+        acompanho até hoje. Por isso, mesmo depois de tantas outras histórias,
+        tenho um carinho especial por ela — e achei muito legal que justamente
+        ela tenha virado meu primeiro projeto de adaptação e arquivo.
+      </>
+    ),
+  },
+] satisfies ArchiveInfoItemProps[];
 
 export const SynopsisC = {
   title: 'linha tênue | au loquinha',
   text: (
     <>
       Uma atriz e uma modelo que não se suportam, Eduarda e Lorena assinam um
-      contrato de namoro falso para preservar a imagem de ambas. Só esquecem que o
-      ódio e o amor andam lado a lado.
+      contrato de namoro falso para preservar a imagem de ambas. Só esquecem que
+      o ódio e o amor andam lado a lado.
     </>
   ),
   media: {

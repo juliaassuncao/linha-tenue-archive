@@ -7,13 +7,24 @@ import { createServer } from 'vite';
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const outputDirectory = path.join(projectRoot, 'dist/ao3');
 
-export const parseExportArgs = (args) => {
+const parseTargetArgs = (args) => {
   if (!args.length) return { mode: 'all' };
   if (args.length === 1 && args[0] === '--intro') return { mode: 'intro' };
   if (args.length === 2 && args[0] === '--chapter' && /^[0-9]{3}$/.test(args[1])) {
     return { mode: 'chapter', chapterId: args[1] };
   }
-  throw new Error('Argumentos inválidos. Use export:ao3, --intro ou --chapter 001 (três dígitos).');
+  throw new Error('Argumentos inválidos. Use export:ao3, --intro ou --chapter 001 (três dígitos), com --production opcional.');
+};
+
+export const parseExportArgs = (args) => {
+  const productionFlags = args.filter((arg) => arg === '--production');
+  if (productionFlags.length > 1) {
+    throw new Error('Use --production somente uma vez.');
+  }
+  return {
+    ...parseTargetArgs(args.filter((arg) => arg !== '--production')),
+    showTestNotice: productionFlags.length === 0,
+  };
 };
 
 export const selectExportTargets = (registry, selection) => {
@@ -102,7 +113,7 @@ const exportAo3 = async () => {
     const files = [];
 
     for (const target of targets) {
-      const html = prepareAo3Html(renderAo3Target(target), assetBaseUrl);
+      const html = prepareAo3Html(renderAo3Target(target, selection.showTestNotice), assetBaseUrl);
       validateAo3Html(html, assetBaseUrl);
       files.push([target.filename, `${html}\n`]);
       if (target.previewFilename) {
@@ -118,6 +129,7 @@ const exportAo3 = async () => {
       await writeFile(destination, content, 'utf8');
     }
     console.log(`${Ao3Registry.filter((target) => target.type === 'chapter').length} production chapters registered.`);
+    console.log(`Publicação AO3: ${selection.showTestNotice ? 'teste (com aviso temporário)' : 'produção (sem aviso temporário)'}.`);
     console.log(`Export AO3 validado: dist/ao3/workskin.css${files.map(([filename]) => `, ${filename}`).join('')}`);
     if (!assetBaseUrl && targets.some((target) => target.type === 'intro')) {
       console.warn('Sem AO3_ASSET_BASE_URL: Intro QA usa /assets/. Informe uma base HTTPS pública antes de colar no AO3. O preview pode ser aberto diretamente no navegador.');

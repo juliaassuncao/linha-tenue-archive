@@ -2,8 +2,10 @@ import { CharacterSectionsC, IntroC, SynopsisC } from './constants.tsx';
 import { Synopsis } from './synopsis';
 import S from './styles.module.scss';
 import { CharacterSection } from './character-section';
+import { ArchiveInfo } from './archive-info';
+import type { IntroProps } from './props';
 
-export const Intro = () => {
+export const Intro = ({ showTestNotice = false }: IntroProps) => {
   return (
     <main className={`${S.wrapper} lt-intro`}>
       <header className={`${S.header} lt-intro__header`}>
@@ -12,6 +14,7 @@ export const Intro = () => {
           {IntroC.header.subtitle}
         </p>
       </header>
+      <ArchiveInfo showTestNotice={showTestNotice} />
       <div className={`${S.content} lt-intro__content`}>
         <Synopsis
           text={SynopsisC.text}

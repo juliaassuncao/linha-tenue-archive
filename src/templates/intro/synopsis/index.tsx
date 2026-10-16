@@ -1,11 +1,12 @@
 import { resolveAssetUrl } from '@/utils/resolve-asset-url';
-import { SynopsisPreviewC } from './constants';
+import { SynopsisLabelsC, SynopsisPreviewC } from './constants';
 import type { SynopsisProps } from './props';
 import S from './styles.module.scss';
 
 export function Synopsis({ text, media }: SynopsisProps) {
   return (
     <section className={`${S.synopsis} lt-synopsis`}>
+      <h2 className={`${S.title} lt-synopsis__title`}>{SynopsisLabelsC.title}</h2>
       <p className={`${S.text} lt-synopsis__text`}>{text}</p>
       <section className={`${S.test} lt-synopsis__media`}>
         <div className={`${S.mediaLayout} lt-synopsis__layout`}>

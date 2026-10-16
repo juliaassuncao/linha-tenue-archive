@@ -1,5 +1,20 @@
 import type { ReactNode } from 'react';
 
+export interface IntroProps {
+  showTestNotice?: boolean;
+}
+
+export interface ArchiveInfoItemProps {
+  id: string;
+  label: string;
+  text: ReactNode;
+  link?: {
+    label: string;
+    href: string;
+  };
+  testOnly?: boolean;
+}
+
 export type IntroBlockProps =
   | {
       id: string;

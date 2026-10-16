@@ -109,6 +109,13 @@ npm run export:ao3 -- --chapter 001
 npm run export:ao3:intro
 ```
 
+As exportações incluem por padrão o aviso editorial de teste da Intro
+(`showTestNotice: true`). Adicione `--production` a qualquer seleção para gerar
+a publicação definitiva sem esse aviso, por exemplo
+`npm run export:ao3 -- --chapter 001 --production`. O site usa
+`showTestNotice: false`. Créditos, aviso de leitura digital e recado para Leth
+permanecem em todas as variantes; os assets de branding são exclusivos do site.
+
 Sem argumentos, exporta todos os alvos registrados. `--intro` exporta somente a Intro para QA. `export:ao3:intro` é um alias para essa mesma CLI com `--intro`, sem pipeline paralelo. `--chapter 001` seleciona um capítulo registrado e falha de forma controlada enquanto ele não existir. Atualmente há apenas a Intro; o comando geral informa `0 production chapters registered.`. Argumentos inválidos também geram uma mensagem curta e código de saída 1.
 
 A Intro é independente no site, mas não será capítulo 00 no AO3. Quando existir conteúdo real, o capítulo 001 reunirá Intro + Update 001, e 002 em diante conterão somente suas respectivas atualizações. A composição usa os mesmos componentes React, com `includeIntro` explícito no registry, sem duplicar markup. Não há Update 001 registrada nesta etapa.
