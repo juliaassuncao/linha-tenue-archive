@@ -1101,9 +1101,10 @@
       content: '';
       position: absolute;
       top: 0;
-      left: 30px;
+      left: 31px;
       width: 2px;
-      height: 0.375em;
+      height: 6px;
+      transform: translateX(-50%);
       background-color: #e3e8ec;
     }
   }
@@ -1114,8 +1115,9 @@
       position: absolute;
       top: 66px;
       bottom: 0;
-      left: 30px;
+      left: 31px;
       width: 2px;
+      transform: translateX(-50%);
       background-color: #e3e8ec;
     }
   }
