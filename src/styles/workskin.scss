@@ -6,14 +6,6 @@
       box-sizing: border-box;
     }
 
-    .lt-chat div,
-    .lt-chat span,
-    .lt-chat p,
-    .lt-chat figure {
-      margin: 0;
-      padding: 0;
-    }
-
     .lt-chat img {
       max-width: 100%;
       height: auto;
@@ -140,7 +132,7 @@
   }
 
   .lt-chat__messages-area--with-background {
-    height: 0;
+    height: auto;
     padding-bottom: 170%;
 
     .lt-chat__background {
@@ -311,6 +303,14 @@
     height: auto;
     margin-left: 0.35em;
   }
+}
+
+#workskin .lt-chat div,
+#workskin .lt-chat span,
+#workskin .lt-chat p,
+#workskin .lt-chat figure {
+  margin: 0;
+  padding: 0;
 }
 
 #workskin .lt-intro {
